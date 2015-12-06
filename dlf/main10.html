@@ -58,7 +58,7 @@
 				success: function(slot) { 
 					slot.set("foo",document.getElementById("uname").value);
 					//console.log(slot.get("foo"));
-					document.getElementById("status_surface").innerHTML="You entered" + "" +slot.get("foo");
+					document.getElementById("status_surface").innerHTML="You entered" + " " +slot.get("foo");
 					slot.save();
 				}
 			})
