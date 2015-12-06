@@ -37,6 +37,9 @@
       <div class="jumbotron">
 		<h2 style="color:#984807"><strong>KPMG Surface Parking</strong></h2>
 		<hr>
+		<label for="username" class="sr-only">Enter parking</label>
+        <input type="text" id="uname" class="form-control" placeholder="Username" required="" autofocus=""></input>
+		<br>
 		<button type="button"  onclick="refresh_available_surface()" class="btn btn-success">Available</button>	
 		<button type="button"  onclick="update_surface()" class="btn btn-warning">Less than 10</button>	
 		<button type="button"  onclick="refresh_full_surface()"      class="btn btn-danger">Full</button>
@@ -53,8 +56,9 @@
 			query.equalTo("objectId","MX9FoN9eOh");
 			query.first({
 				success: function(slot) { 
-					slot.set("foo","sagar");
+					slot.set("foo",document.getElementById("uname").value);
 					//console.log(slot.get("foo"));
+					document.getElementById("status_surface").innerHTML="You entered" + "" +slot.get("foo");
 					slot.save();
 				}
 			})
