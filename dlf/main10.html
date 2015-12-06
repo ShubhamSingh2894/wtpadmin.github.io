@@ -16,8 +16,9 @@
 
     <!-- Custom styles for this template -->
     <link href="../css/jumbotron-narrow.css" rel="stylesheet">
-	<script src="../js/jquery-2.1.4.min.js"></script>
 	<script src="//www.parsecdn.com/js/parse-1.6.7.min.js"></script>
+	<script src="../js/jquery-2.1.4.min.js"></script>
+	<!--<script src="http://backbonejs.org/backbone-min.js"></script>-->
 	
   </head>
 
@@ -47,13 +48,13 @@
 		function refresh_available_surface() {
 			Parse.$ = jQuery;
 			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH"); 
-			var Slot =  Parse.Object.extend("User");
+			var Slot =  Parse.Object.extend("TestObject");
 			var query = new Parse.Query(Slot);
-			query.equalTo("username","main10");
+			query.equalTo("objectId","MX9FoN9eOh");
 			query.first({
 				success: function(slot) { 
-					slot.set("test",10);
-					console.log(slot.get("test"));
+					slot.set("foo","sagar");
+					//console.log(slot.get("foo"));
 					slot.save();
 				}
 			})
