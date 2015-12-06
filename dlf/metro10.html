@@ -40,7 +40,7 @@
 		<hr>
 		<br>
 		<button type="button"  onclick="refresh_available_surface()" class="btn btn-success">-</button>	
-		<input id ="slot_metro" name="metro_slot_show" type="number" disabled></input>
+		<input id ="slot_metro" name="metro_slot_show" type="number" ></input>
 		<button type="button"  onclick="refresh_full_surface()"      class="btn btn-danger">+</button>
 		<hr>
 		<h2 id ="status_surface" style="color:#984807"><strong></strong></h2>				
@@ -55,7 +55,7 @@
 			query.equalTo("objectId","CxD6JdgfB6");
 			query.first({
 				success: function(slot) { 
-					slot.set("parking_counter",document.getElementById("metro_slot").value);
+					slot.set("parking_counter",parseInt(document.getElementById("metro_slot").value));
 					slot.save();
 					document.getElementById("metro_slot_show").value = slot.get("parking_counter");
 				}
