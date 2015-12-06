@@ -55,9 +55,14 @@
 			query.equalTo("objectId","CxD6JdgfB6");
 			query.first({
 				success: function(slot) { 
-					slot.set("parking_counter",parseInt(document.getElementById("metro_slot").value));
-					slot.save();
-					document.getElementById("slot_metro").value = slot.get("parking_counter");
+				{
+					
+						slot.set("disable", true);
+						slot.set("parking_counter",parseInt(document.getElementById("metro_slot").value));
+						slot.save();
+						document.getElementById("slot_metro").value = slot.get("parking_counter");
+				
+					}
 				}
 			});
 		}
@@ -72,7 +77,8 @@
 			query.first({
 			success: function(slot) { 
 				check_status();
-				if(slot.get("parking_counter")< 50)
+				slot.set("disable", true);
+				if(slot.get("parking_counter")< 39)
 				{
 					slot.increment("parking_counter", 1);
 					slot.save()
@@ -97,6 +103,7 @@
 			query.first({
 				success: function(slot) { 
 				check_status();
+				slot.set("disable", true);
 				if(slot.get("parking_counter") > 0)
 				{
 					slot.increment("parking_counter", -1);
@@ -121,7 +128,7 @@
 				query.equalTo("objectId","CxD6JdgfB6");
 				query.first({
 					success: function(slot) { 
-					if(slot.get("parking_counter") > 0 || slot.get("parking_counter") >=50)
+					if(slot.get("parking_counter") > 0 || slot.get("parking_counter") >=39)
 					{	
 						
 						document.getElementById("status_metro_count").innerHTML ="";
@@ -151,7 +158,8 @@
 			var query = new Parse.Query(Slot);
 			query.equalTo("objectId","CxD6JdgfB6");
 			query.first({
-				success: function(slot) { 
+				success: function(slot) {
+					slot.set("disable", false);				
 					slot.set("status_available", "Available");
 					slot.save();
 					document.getElementById("status_metro").innerHTML ="Current status" + ": " + slot.get("status_available");
@@ -167,6 +175,7 @@
 			query.equalTo("objectId","CxD6JdgfB6");
 			query.first({
 				success: function(slot) { 
+					slot.set("disable", false);				
 					slot.set("status_available", "Less than 10 Slots");
 					slot.save();
 					document.getElementById("status_metro").innerHTML ="Current status" + " : " +  slot.get("status_available");
@@ -182,6 +191,7 @@
 			query.equalTo("objectId","CxD6JdgfB6");
 			query.first({
 				success: function(slot) { 
+					slot.set("disable", false);				
 					slot.set("status_available", "Full");
 					slot.save();
 					document.getElementById("status_metro").innerHTML = "Current status" + " : " + slot.get("status_available");
