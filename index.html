@@ -24,13 +24,51 @@
       <form class="form-signin">
         <h2 class="form-signin-heading">Admin Login</h2>
         <label for="username" class="sr-only">Username</label>
-        <input type="text" id="username" class="form-control" placeholder="Username" required="" autofocus="">
+        <input type="text" id="uname" class="form-control" placeholder="Username" required="" autofocus="">
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+        <input type="password" id="password" class="form-control" placeholder="Password" required="">
         <br>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
+		<select id="select1">
+			<option value="0" selected="selected">Select Parking</option>
+			<option value="1">KPMG MAIN PARKING</option>
+			<option value="2">KPMG METRO PARKING</option>
+		</select><br>
+		<br>
+        <button class="btn btn-lg btn-success btn-block" onClick="authen()"<!--type="submit"--->>Log In</button>
       </form>
 
-    </div> <!-- /container -->
+    </div>
+	<script>
+	function authen() { 
+			var parking=document.getElementById("select1").options[document.getElementById("select1").selectedIndex].text ;
+		console.log(parking);
+			Parse.$ = jQuery;
+			Parse.initialize("SxLcanZTIZ5uJxDqtE65d0NPxk1zYRxZSxt6E5oq", "JdEN6kYT4thC4AzBS4nMfAavGDszgP24biD4KRmy");
+			var User = Parse.Object.extend("User");
+			var query = new Parse.Query(User);
+			query.get("wIde8ZPvWa",{ 
+			success: function(user) {
+			console.log(user.get("username"));
+			
+				if(document.getElementById("uname").value == user.get("username")) 
+					{
+						console.log("entered");
+						if (parking ==  "KPMG MAIN PARKING") {
+						window.location.href = "dlf/main10.html";
+						}
+						
+						else if (parking == "KPMG VODAFONE METRO PARKING") {
+						window.location.href = "dlf/metro10.html";
+						}
+						}
+					},
+			error: function(object, error) {
+				}
+			});
+			
+	}
+	
+	</script>
+	<!-- /container -->
   </body>
 </html>

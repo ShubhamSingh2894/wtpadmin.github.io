@@ -36,36 +36,27 @@
       <div class="jumbotron">
 		<h2 style="color:#984807"><strong>KPMG Surface Parking</strong></h2>
 		<hr>
-		<button type="button" id="surface" onclick="refresh_available_surface()" class="btn btn-success">Available</button>	
-		<button type="button" id="surface" onclick="update_surface()" class="btn btn-warning">Less than 10</button>	
-		<button type="button" id="surface" onclick="refresh_full_surface()"      class="btn btn-danger">Full</button>
+		<button type="button"  onclick="refresh_available_surface()" class="btn btn-success">Available</button>	
+		<button type="button"  onclick="update_surface()" class="btn btn-warning">Less than 10</button>	
+		<button type="button"  onclick="refresh_full_surface()"      class="btn btn-danger">Full</button>
 		<hr>
-		<h2 id ="status" style="color:#984807"><strong></strong></h2>				
+		<h2 id ="status_surface" style="color:#984807"><strong></strong></h2>				
 	</div>
 	
 	<script>	
 		function refresh_available_surface() {
 			Parse.$ = jQuery;
 			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH"); 
-			var User = Parse.Object.extend("User");
-			var query = new Parse.Query(User);
-			query.get("wIde8ZPvWa",{ 
-			success: function(user) {
-				var user = Parse.User.current();
-				user.save(null, {
-					success: function(user) {
-					var a=user.get("status_available");
-					a[0]="Available";
-					document.getElementById("status").innerHTML="Current Status: " + a[0];
-					user.set("status_available",a);
-					user.save();
-					}
-				});
-			},
-			error: function(object, error) {
-				//Null
+			var Slot =  Parse.Object.extend("User");
+			var query = new Parse.Query(Slot);
+			query.equalTo("username","main10");
+			query.first({
+				success: function(slot) { 
+					slot.set("test",10);
+					console.log(slot.get("test"));
+					slot.save();
 				}
-			});
+			})
 		}
 		
 		
@@ -73,85 +64,15 @@
 		<div class="jumbotron">
 		<h2 style="color:#984807"><strong> KPMG Basement Parking</strong></h2>
 		<hr>
-		<button type="button" id="surface" onclick="refresh_available()" class="btn btn-success">Available</button>	
-		<button type="button" id="surface" onclick="update()" class="btn btn-warning">Less than 10</button>	
-		<button type="button" id="surface" onclick="refresh_full()"      class="btn btn-danger">Full</button>
+		<button type="button" id="surface" onclick="refresh_available_basement()" class="btn btn-success">Available</button>	
+		<button type="button" id="surface" onclick="update_basement()" class="btn btn-warning">Less than 10</button>	
+		<button type="button" id="surface" onclick="refresh_full_basement()"      class="btn btn-danger">Full</button>
 		<hr>
-		<h2 id ="status" style="color:#984807"><strong></strong></h2>				
+		<h2 id ="status_basement" style="color:#984807"><strong></strong></h2>				
 	</div>
 	
 	<script>	
-		function refresh_available() {
-			Parse.$ = jQuery;
-			Parse.initialize("SxLcanZTIZ5uJxDqtE65d0NPxk1zYRxZSxt6E5oq", "JdEN6kYT4thC4AzBS4nMfAavGDszgP24biD4KRmy");
-			var User = Parse.Object.extend("User");
-			var query = new Parse.Query(User);
-			query.get("hfBMJ3zWKa",{ 
-			success: function(user) {
-				var user = Parse.User.current();
-				user.save(null, {
-					success: function(user) {
-					var a=user.get("status_available");
-					a[0]="Available";
-					document.getElementById("status").innerHTML="Current Status: " + a[0];
-					user.set("status_available",a);
-					user.save();
-					}
-				});
-			},
-			error: function(object, error) {
-				//Null
-				}
-			});
-		}
-		
-		function update() {
-			Parse.$ = jQuery;
-			Parse.initialize("SxLcanZTIZ5uJxDqtE65d0NPxk1zYRxZSxt6E5oq", "JdEN6kYT4thC4AzBS4nMfAavGDszgP24biD4KRmy");
-			var User = Parse.Object.extend("User");
-			var query = new Parse.Query(User);
-			query.get("hfBMJ3zWKa",{ 
-			success: function(user) {
-				var user = Parse.User.current();
-				user.save(null, {
-					success: function(user) {
-					var a=user.get("status_available");
-					a[0]="Less than 10 slots";
-					document.getElementById("status").innerHTML="Current Status: " + a[0];
-					user.set("status_available",a);
-					user.save();
-					}
-				});
-			},
-			error: function(object, error) {
-				//Null
-				}
-			});
-		}
-		
-		function refresh_full() {
-			Parse.$ = jQuery;
-			Parse.initialize("SxLcanZTIZ5uJxDqtE65d0NPxk1zYRxZSxt6E5oq", "JdEN6kYT4thC4AzBS4nMfAavGDszgP24biD4KRmy");
-			var User = Parse.Object.extend("User");
-			var query = new Parse.Query(User);
-			query.get("hfBMJ3zWKa",{ 
-			success: function(user) {
-				var user = Parse.User.current();
-				user.save(null, {
-					success: function(user) {
-					var a=user.get("status_available");
-					a[0]="Full";
-					user.set("status_available",a);
-					document.getElementById("status").innerHTML="Current Status: " + a[0];
-					user.save();
-					}
-				});
-			},
-			error: function(object, error) {
-				//Null
-				}
-			});
-		}			
+
 		</script>		
      		
       </div>   
