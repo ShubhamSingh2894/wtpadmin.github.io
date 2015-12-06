@@ -14,36 +14,30 @@
     <link href="css/signin.css" rel="stylesheet">
 	<script src="js/jquery-2.1.4.min.js"></script>
 	<script src="//www.parsecdn.com/js/parse-1.6.7.min.js"></script>
-	<!--<script src="js/index.js"></script>-->
+	<script src="js/index.js"></script>
   </head>
 
   <body>
 
-    <div class="container">
-
-      <form class="form-signin">
-        <h2 class="form-signin-heading">Admin Login</h2>
-        <label for="username" class="sr-only">Username</label>
-        <input type="text" id="uname" class="form-control" placeholder="Username" required="" autofocus="">
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="password" class="form-control" placeholder="Password" required="">
-        <br>
+   <div class="main-container">
+    <form class="form-signin" role="form">
+       <h2 class="form-signin-heading">WhereToPark Admin</h2>
+		<input type="text" id="uname" name="username" class="form-control" placeholder="Username" required="" autofocus="">
+		<input type="password" id="pass" name="password" class="form-control" placeholder="Password" required="">
 		<select id="select1">
 			<option value="0" selected="selected">Select Parking</option>
 			<option value="1">KPMG MAIN PARKING</option>
-			<option value="2">KPMG METRO PARKING</option>
+			<option value="3">KPMG VODAFONE METRO PARKING</option>
 		</select><br>
-		<br>
-        <button class="btn btn-lg btn-success btn-block" onClick="authen()"<!--type="submit"--->>Log In</button>
-      </form>
-
-    </div>
+		<button type="button" id="surface" onclick="authen()" class="btn btn-success">Sign In</button>
+	</form>
+	</div>
 	<script>
 	function authen() { 
 			var parking=document.getElementById("select1").options[document.getElementById("select1").selectedIndex].text ;
 		console.log(parking);
 			Parse.$ = jQuery;
-			Parse.initialize("SxLcanZTIZ5uJxDqtE65d0NPxk1zYRxZSxt6E5oq", "JdEN6kYT4thC4AzBS4nMfAavGDszgP24biD4KRmy");
+			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH"); 
 			var User = Parse.Object.extend("User");
 			var query = new Parse.Query(User);
 			query.get("wIde8ZPvWa",{ 
@@ -56,8 +50,20 @@
 						if (parking ==  "KPMG MAIN PARKING") {
 						window.location.href = "dlf/main10.html";
 						}
-						
-						else if (parking == "KPMG VODAFONE METRO PARKING") {
+						}
+					},
+			error: function(object, error) {
+				}
+			});
+			
+			query.get("87eai4RQYk",{ 
+			success: function(user) {
+			console.log(user.get("username"));
+			
+				if(document.getElementById("uname").value == user.get("username")) 
+					{
+						console.log("entered");
+						if (parking ==  "KPMG VODAFONE METRO PARKING") {
 						window.location.href = "dlf/metro10.html";
 						}
 						}
@@ -69,6 +75,5 @@
 	}
 	
 	</script>
-	<!-- /container -->
   </body>
 </html>

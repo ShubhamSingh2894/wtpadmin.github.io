@@ -27,7 +27,7 @@
       <div class="header clearfix">
         <nav>
           <ul class ="nav nav-pills pull-right">
-			<li role="presentation" class="active"><a href="index.html">Logout</a></li>
+			<li role="presentation" class="active"><a href="../index.html">Logout</a></li>
 		  </ul>
         </nav>
       </div>
@@ -39,11 +39,11 @@
 		<button class="btn btn-xs btn-success" onClick="update_metro_slot()">Enter</button>
 		<hr>
 		<br>
-		<button type="button"  onclick="refresh_available_surface()" class="btn btn-success">-</button>	
-		<input id ="slot_metro" name="metro_slot_show" type="number" ></input>
-		<button type="button"  onclick="refresh_full_surface()"      class="btn btn-danger">+</button>
+		<button type="button"  onclick="metro_minus()" class="btn btn-success">-</button>	
+		<input id ="slot_metro" value="" type="number" disabled ></input>
+		<button type="button"  onclick="metro_plus()"      class="btn btn-danger">+</button>
 		<hr>
-		<h2 id ="status_surface" style="color:#984807"><strong></strong></h2>				
+		<h2 id ="status_metro_count" style="color:#984807"><strong></strong></h2>				
 	</div>
 	
 	<script>	
@@ -57,26 +57,38 @@
 				success: function(slot) { 
 					slot.set("parking_counter",parseInt(document.getElementById("metro_slot").value));
 					slot.save();
-					document.getElementById("metro_slot_show").value = slot.get("parking_counter");
+					document.getElementById("slot_metro").value = slot.get("parking_counter");
 				}
-			})
+			});
 		}
-				function metro_plus() {
+			
+			
+			 function metro_plus() {
 			Parse.$ = jQuery;
 			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH"); 
 			var Slot =  Parse.Object.extend("KPMG");
 			var query = new Parse.Query(Slot);
 			query.equalTo("objectId","CxD6JdgfB6");
 			query.first({
-				success: function(slot) { 
-					slot.set("status_available", "Full");
+			success: function(slot) { 
+				check_status();
+				if(slot.get("parking_counter")< 50)
+				{
+					slot.increment("parking_counter", 1);
+					slot.save()
+					document.getElementById("slot_metro").value = slot.get("parking_counter");
+					}
+				
+				else { 
+					slot.set("status_available", "Available");
 					slot.save();
-					document.getElementById("status_surface").innerHTML = "Current status" + " : " + slot.get("status_available");
+				   document.getElementById("status_metro_count").innerHTML ="Current status" + " : " +  slot.get("status_available");
 				}
-			})
+				}
+			});
 		}
 		
-				function metro_minus() {
+		function metro_minus() {
 			Parse.$ = jQuery;
 			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH"); 
 			var Slot =  Parse.Object.extend("KPMG");
@@ -84,11 +96,38 @@
 			query.equalTo("objectId","CxD6JdgfB6");
 			query.first({
 				success: function(slot) { 
+				check_status();
+				if(slot.get("parking_counter") > 0)
+				{
+					slot.increment("parking_counter", -1);
+					slot.save();
+					document.getElementById("slot_metro").value = slot.get("parking_counter");
+					}
+				
+				else {
 					slot.set("status_available", "Full");
 					slot.save();
-					document.getElementById("status_surface").innerHTML = "Current status" + " : " + slot.get("status_available");
+				  document.getElementById("status_metro_count").innerHTML ="Current status" + " : " +  slot.get("status_available");
 				}
-			})
+				}
+			});
+		}
+		
+		function check_status() {
+				Parse.$ = jQuery;
+				Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH"); 
+				var Slot =  Parse.Object.extend("KPMG");
+				var query = new Parse.Query(Slot);
+				query.equalTo("objectId","CxD6JdgfB6");
+				query.first({
+					success: function(slot) { 
+					if(slot.get("parking_counter") > 0 || slot.get("parking_counter") >=50)
+					{	
+						
+						document.getElementById("status_metro_count").innerHTML ="";
+				}
+				}
+			});
 		}
 		
 		</script>
