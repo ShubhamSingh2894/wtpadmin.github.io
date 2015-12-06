@@ -49,17 +49,21 @@
 			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH"); 
 			var User = Parse.Object.extend("User");
 			var query = new Parse.Query(User);
-			query.equalTo("username", "main10");
-			query.first({
-				success: function(object) {
-				var a= object.get("status_available");
-				a[0]="Available";
-				object.set("status_available",a);
-				console.log(a);
-				object.save();
+			query.get("wIde8ZPvWa",{ 
+			success: function(user) {
+				var user = Parse.User.current();
+				user.save(null, {
+					success: function(user) {
+					var a=user.get("status_available");
+					a[0]="Available";
+					document.getElementById("status").innerHTML="Current Status: " + a[0];
+					user.set("status_available",a);
+					user.save();
+					}
+				});
 			},
-			error: function(error) {
-					alert("Error: " + error.code + " " + error.message);
+			error: function(object, error) {
+				//Null
 				}
 			});
 		}
