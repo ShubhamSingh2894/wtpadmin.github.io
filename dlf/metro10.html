@@ -18,6 +18,25 @@
     <link href="../css/jumbotron-narrow.css" rel="stylesheet">
 	<script src="../js/jquery-2.1.4.min.js"></script>
 	<script src="//www.parsecdn.com/js/parse-1.6.7.min.js"></script>
+	<script>
+
+		function onstart() { 
+			Parse.$ = jQuery;
+			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH"); 
+			var Slot =  Parse.Object.extend("KPMG");
+			var query = new Parse.Query(Slot);
+			query.equalTo("objectId","CxD6JdgfB6");
+
+			query.first({
+				success: function(slot) { 
+					document.getElementById("status_metro").innerHTML = "Current status" + " : " + slot.get("status_available");
+					document.getElementById("status_metro_count").innerHTML = "Current parking slot" + " : " + slot.get("parking_counter");					
+				}
+			})
+		}
+		
+		window.onload = onstart;
+	</script>
 	
   </head>
 
@@ -36,12 +55,12 @@
 		<h2 style="color:#984807"><strong>KPMG Metro Counter</strong></h2>
 		<hr>
 		<input type="number" id="metro_slot"  placeholder="Enter Slot" required="" autofocus="">
-		<button class="btn btn-xs btn-success" onClick="update_metro_slot()">Enter</button>
+		<button class="btn-sm btn-success" onClick="update_metro_slot()">Enter</button>
 		<hr>
 		<br>
-		<button type="button"  onclick="metro_minus()" class="btn btn-success">-</button>	
+		<button type="button"  onclick="metro_minus()" class="btn-sm btn-danger">-</button>	
 		<input id ="slot_metro" value="" type="number" disabled ></input>
-		<button type="button"  onclick="metro_plus()"      class="btn btn-danger">+</button>
+		<button type="button"  onclick="metro_plus()"      class="btn-sm btn-success">+</button>
 		<hr>
 		<h2 id ="status_metro_count" style="color:#984807"><strong></strong></h2>				
 	</div>
@@ -61,7 +80,7 @@
 						slot.set("parking_counter",parseInt(document.getElementById("metro_slot").value));
 						slot.save();
 						document.getElementById("slot_metro").value = slot.get("parking_counter");
-				
+						start();
 					}
 				}
 			});
@@ -82,13 +101,15 @@
 				{
 					slot.increment("parking_counter", 1);
 					slot.save()
+					start();
 					document.getElementById("slot_metro").value = slot.get("parking_counter");
 					}
 				
 				else { 
 					slot.set("status_available", "Available");
 					slot.save();
-				   document.getElementById("status_metro_count").innerHTML ="Current status" + " : " +  slot.get("status_available");
+					start();
+					document.getElementById("status_metro_count").innerHTML ="Current status" + " : " +  slot.get("status_available");
 				}
 				}
 			});
@@ -135,7 +156,24 @@
 				}
 				}
 			});
+		} 
+		
+		function start() { 
+			Parse.$ = jQuery;
+			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH"); 
+			var Slot =  Parse.Object.extend("KPMG");
+			var query = new Parse.Query(Slot);
+			query.equalTo("objectId","CxD6JdgfB6");
+
+			query.first({
+				success: function(slot) { 
+					//document.getElementById("status_metro").innerHTML = "Current status" + " : " + slot.get("status_available");
+					document.getElementById("status_metro_count").innerHTML = "Current parking slot" + " : " + slot.get("parking_counter");					
+				}
+			})
 		}
+		
+		window.onload = onstart;
 		
 		</script>
 	<!--- KPMG METRO PARKING-->
@@ -143,9 +181,9 @@
       <div class="jumbotron">
 		<h2 style="color:#984807"><strong>KPMG Metro Parking</strong></h2>
 		<hr>
-		<button type="button" id="surface" onclick="refresh_available_metro()" class="btn btn-success">Available</button>	
-		<button type="button" id="surface" onclick="update_metro()" class="btn btn-warning">Less than 10</button>	
-		<button type="button" id="surface" onclick="refresh_full_metro()"      class="btn btn-danger">Full</button>
+		<button type="button" id="surface" onclick="refresh_available_metro()" class="btn-md btn-success">Available</button>	
+		<button type="button" id="surface" onclick="update_metro()" class="btn-md btn-warning">Less than 10</button>	
+		<button type="button" id="surface" onclick="refresh_full_metro()"      class="btn-md btn-danger">Full</button>
 		<hr>
 		<h2 id ="status_metro" style="color:#984807"><strong></strong></h2>				
 	</div>

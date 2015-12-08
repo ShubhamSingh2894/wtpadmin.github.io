@@ -37,9 +37,9 @@
       <div class="jumbotron">
 		<h2 style="color:#984807"><strong>KPMG Surface Parking</strong></h2>
 		<hr>
-		<button type="button"  onclick="refresh_available_surface()" class="btn btn-success">Available</button>	
-		<button type="button"  onclick="update_surface()" class="btn btn-warning">Less than 10</button>	
-		<button type="button"  onclick="refresh_full_surface()"      class="btn btn-danger">Full</button>
+		<button type="button"  onclick="refresh_available_surface()" class="btn-md btn-success">Available</button>	
+		<button type="button"  onclick="update_surface()" class="btn-md btn-warning">Less than 10</button>	
+		<button type="button"  onclick="refresh_full_surface()"      class="btn-md btn-danger">Full</button>
 		<hr>
 		<h2 id ="status_surface" style="color:#984807"><strong></strong></h2>				
 	</div>
@@ -91,13 +91,35 @@
 		}
 		
 		
+		function onstart() { 
+			Parse.$ = jQuery;
+			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH"); 
+			var Slot =  Parse.Object.extend("KPMG");
+			var query = new Parse.Query(Slot);
+			query.equalTo("objectId","1dDJ4kgypx");
+			query.first({
+				success: function(slot) { 
+					document.getElementById("status_surface").innerHTML = "Current status" + " : " + slot.get("status_available");
+				}
+			})
+			
+			query.equalTo("objectId","8CeEdrKPnC");
+			query.first({
+				success: function(slot) { 
+					document.getElementById("status_basement").innerHTML ="Current status" + " : " +  slot.get("status_available");
+				}
+			})
+		}
+		
+		window.onload = onstart;
+		
 		</script>
 		<div class="jumbotron">
 		<h2 style="color:#984807"><strong> KPMG Basement Parking</strong></h2>
 		<hr>
-		<button type="button" id="surface" onclick="refresh_available_basement()" class="btn btn-success">Available</button>	
-		<button type="button" id="surface" onclick="update_basement()" class="btn btn-warning">Less than 10</button>	
-		<button type="button" id="surface" onclick="refresh_full_basement()"      class="btn btn-danger">Full</button>
+		<button type="button" id="surface" onclick="refresh_available_basement()" class="btn-md btn-success">Available</button>	
+		<button type="button" id="surface" onclick="update_basement()" class="btn-md btn-warning">Less than 10</button>	
+		<button type="button" id="surface" onclick="refresh_full_basement()"      class="btn-md btn-danger">Full</button>
 		<hr>
 		<h2 id ="status_basement" style="color:#984807"><strong></strong></h2>				
 	</div>
