@@ -18,6 +18,22 @@
     <link href="../css/jumbotron-narrow.css" rel="stylesheet">
 	<script src="../js/jquery-2.1.4.min.js"></script>
 	<script src="//www.parsecdn.com/js/parse-1.6.7.min.js"></script>
+	<script>
+	function refresh(){
+		Parse.$ = jQuery;
+			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH"); 
+			var Slot =  Parse.Object.extend("KPMG");
+			var query = new Parse.Query(Slot);
+			query.equalTo("objectId","CxD6JdgfB6");
+			query.first({
+					success: function(slot) {		
+						document.getElementById("slot_metro").value = slot.get("parking_counter");
+						document.getElementById("status_metro").innerHTML = slot.get("parking_counter")
+					}
+			});		
+		}
+		window.onload = function(){refresh();};
+	</script>
   </head>
 
   <body>
@@ -73,18 +89,12 @@
 			query.equalTo("objectId","CxD6JdgfB6");
 			query.first({
 			success: function(slot) { 
-				if(slot.get("parking_counter")< 38)
+				if(slot.get("parking_counter") < 39)
 				{
 					slot.increment("parking_counter", 1);
 					slot.save();
 					document.getElementById("slot_metro").value = slot.get("parking_counter");
 					document.getElementById("status_metro").innerHTML = slot.get("parking_counter");
-					}
-				
-				else {
-					slot.set("parking_counter",39);
-					document.getElementById("slot_metro").value = slot.get("parking_counter");
-					document.getElementById("status_metro").innerHTML = "Available";				
 					}
 				}
 			});
@@ -98,18 +108,12 @@
 			query.equalTo("objectId","CxD6JdgfB6");
 			query.first({
 			success: function(slot) { 
-				if(slot.get("parking_counter") > 1)
+				if(slot.get("parking_counter") > 0)
 				{
 					slot.increment("parking_counter", -1);
 					slot.save();
 					document.getElementById("slot_metro").value = slot.get("parking_counter");
 					document.getElementById("status_metro").innerHTML = slot.get("parking_counter");
-					}
-				
-				else { 
-					slot.set("parking_counter",0);
-					document.getElementById("slot_metro").value = slot.get("parking_counter");
-					document.getElementById("status_metro").innerHTML = "Full";
 					}
 				}
 			});
