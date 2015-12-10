@@ -22,19 +22,13 @@
        <h2 class="form-signin-heading">WhereToPark Admin</h2>
 		<input type="text" id="uname" name="username" class="form-control" placeholder="Username" required="" autofocus="">
 		<input type="password" id="pass" name="password" class="form-control" placeholder="Password" required="">
-		<select id="select1">
-			<option value="0" selected="selected">Select Parking</option>
-			<option value="1">KPMG MAIN PARKING</option>
-			<option value="3">KPMG VODAFONE METRO PARKING</option>
-		</select><br>
+		<br>
 		<button type="button" id="surface" onclick="authen()" class="btn btn-success">Sign In</button>
 	</form>
 	</div>
 	
 	<script>
 	function authen() { 
-			var parking=document.getElementById("select1").options[document.getElementById("select1").selectedIndex].text ;
-		console.log(parking);
 			Parse.$ = jQuery;
 			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH"); 
 			var User = Parse.Object.extend("User");
@@ -46,9 +40,7 @@
 				if(document.getElementById("uname").value == user.get("username")) 
 					{
 						console.log("entered");
-						if (parking ==  "KPMG MAIN PARKING") {
 						window.location.href = "dlf/main10.html";
-						}
 						}
 					},
 			error: function(object, error) {
@@ -62,9 +54,21 @@
 				if(document.getElementById("uname").value == user.get("username")) 
 					{
 						console.log("entered");
-						if (parking ==  "KPMG VODAFONE METRO PARKING") {
 						window.location.href = "dlf/metro10.html";
 						}
+					},
+			error: function(object, error) {
+				}
+			});
+			
+			query.get("Z40uwotciO",{ 
+			success: function(user) {
+			console.log(user.get("username"));
+			
+				if(document.getElementById("uname").value == user.get("username")) 
+					{
+						console.log("entered");
+						window.location.href = "dlf/base10.html";
 						}
 					},
 			error: function(object, error) {
