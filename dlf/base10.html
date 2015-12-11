@@ -106,6 +106,7 @@
 			query.first({
 				success: function(slot) { 
 					slot.set("parking_counter",21);
+                                        basement_insight(slot.get("parking_counter"));
 					slot.save();
 					//document.getElementById("slot_basement").value=slot.get("parking_counter");
 					document.getElementById("status_basement").innerHTML ="Current status" + ": " + "Available";
@@ -129,6 +130,7 @@
 			query.equalTo("objectId","8CeEdrKPnC");
 			query.first({
 				success: function(slot) {
+                                basement_insight(slot.get("parking_counter"));
 				if(document.getElementById("slot_basement").value < 21 && document.getElementById("slot_basement").value >=0)
                                     {
 					slot.set("parking_counter",parseInt(document.getElementById("slot_basement").value));
@@ -148,9 +150,11 @@
 			var query = new Parse.Query(Slot);
 			query.equalTo("objectId","8CeEdrKPnC");
 			query.first({
-				success: function(slot) { 
+				success: function(slot) {
+				
 					slot.set("parking_counter",20);
-					document.getElementById("slot_basement").value=slot.get("parking_counter");
+                                        basement_insight(slot.get("parking_counter"));
+				document.getElementById("slot_basement").value=slot.get("parking_counter");
 					document.getElementById("status_basement").innerHTML ="Current status" + ": " + slot.get("parking_counter");
 					document.getElementById("basement_min").disabled= "";
                                         document.getElementById("slot_basement").disabled= "";
@@ -170,6 +174,7 @@
 			query.equalTo("objectId","8CeEdrKPnC");
 			query.first({
 				success: function(slot) { 
+                                basement_insight(slot.get("parking_counter"));
 					if(slot.get("parking_counter") > 0)
 				{
 					slot.increment("parking_counter", -1);
@@ -188,7 +193,8 @@
 			var query = new Parse.Query(Slot);
 			query.equalTo("objectId","8CeEdrKPnC");
 			query.first({
-				success: function(slot) { 
+				success: function(slot) {
+				basement_insight(slot.get("parking_counter"));
 					if(slot.get("parking_counter") <  20)
 				{
 					slot.increment("parking_counter", 1);
@@ -209,6 +215,17 @@
 					}
 				}
 			})
+		}
+		
+		function basement_insight(a) { 
+                        var a = a;
+                        Parse.$ = jQuery;
+                        Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
+                        var ins = Parse.Object.extend("kpmg_insights");
+                        var ins = new ins();
+                        ins.save({parkin_name: "BASEMENT",parkin_count: a}).then(function(object) {
+                    });
+		
 		}
 		
 		</script>
@@ -244,6 +261,7 @@
 			query.first({
 				success: function(slot) { 
 					slot.set("parking_counter",21);
+					pwc_insight(slot.get("parking_counter"));
 					slot.save();
 					//document.getElementById("slot_pwc").value=slot.get("parking_counter");
 					document.getElementById("status_pwc").innerHTML ="Current status" + ": " + "Available";
@@ -270,6 +288,7 @@
 				if(document.getElementById("slot_pwc").value < 21 && document.getElementById("slot_pwc").value >=0)
                                     {
 					slot.set("parking_counter",parseInt(document.getElementById("slot_pwc").value));
+					pwc_insight(slot.get("parking_counter"));
 					slot.save();
 					document.getElementById("slot_pwc").value=slot.get("parking_counter");
 					document.getElementById("status_pwc").innerHTML = slot.get("parking_counter");
@@ -288,6 +307,7 @@
 			query.first({
 				success: function(slot) { 
 					slot.set("parking_counter",20);
+					pwc_insight(slot.get("parking_counter"));
 					document.getElementById("slot_pwc").value=slot.get("parking_counter");
 					document.getElementById("status_pwc").innerHTML ="Current status" + ": " + slot.get("parking_counter");
 					document.getElementById("pwc_min").disabled= "";
@@ -307,7 +327,8 @@
 			var query = new Parse.Query(Slot);
 			query.equalTo("objectId","quOVEYWF6d");
 			query.first({
-				success: function(slot) { 
+				success: function(slot) {
+				pwc_insight(slot.get("parking_counter"));
 					if(slot.get("parking_counter") > 0)
 				{
 					slot.increment("parking_counter", -1);
@@ -327,6 +348,7 @@
 			query.equalTo("objectId","quOVEYWF6d");
 			query.first({
 				success: function(slot) { 
+				pwc_insight(slot.get("parking_counter"));
 					if(slot.get("parking_counter") <  20)
 				{
 					slot.increment("parking_counter", 1);
@@ -347,6 +369,17 @@
 					}
 				}
 			})
+		}
+		
+		function pwc_insight(a) { 
+                        var a = a;
+                        Parse.$ = jQuery;
+                        Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
+                        var ins = Parse.Object.extend("pwc_insights");
+                        var ins = new ins();
+                        ins.save({parkin_name: "BASEMENT",parkin_count: a}).then(function(object) {
+                    });
+		
 		}
 		
 		</script>

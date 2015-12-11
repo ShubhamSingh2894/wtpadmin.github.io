@@ -72,6 +72,7 @@
 						if(document.getElementById("slot_metro").value <40 && document.getElementById("slot_metro").value >= 0)
 						{
 						slot.set("parking_counter",parseInt(document.getElementById("slot_metro").value));
+						metro_insight(slot.get("parking_counter"));
 						slot.save();
 						document.getElementById("status_metro").innerHTML = slot.get("parking_counter")
 					}
@@ -88,7 +89,8 @@
 			var query = new Parse.Query(Slot);
 			query.equalTo("objectId","CxD6JdgfB6");
 			query.first({
-			success: function(slot) { 
+			success: function(slot) {
+			metro_insight(slot.get("parking_counter"));
 				if(slot.get("parking_counter") < 39)
 				{
 					slot.increment("parking_counter", 1);
@@ -108,6 +110,7 @@
 			query.equalTo("objectId","CxD6JdgfB6");
 			query.first({
 			success: function(slot) { 
+				metro_insight(slot.get("parking_counter"));
 				if(slot.get("parking_counter") > 0)
 				{
 					slot.increment("parking_counter", -1);
@@ -117,6 +120,18 @@
 					}
 				}
 			});
+		}
+		
+		
+		function metro_insight(a) { 
+                        var a = a;
+                        Parse.$ = jQuery;
+                        Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
+                        var ins = Parse.Object.extend("kpmg_insights");
+                        var ins = new ins();
+                        ins.save({parkin_name: "Metro",parkin_count: a}).then(function(object) {
+                    });
+		
 		}
 		
 		</script>
