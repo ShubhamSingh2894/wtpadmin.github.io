@@ -91,11 +91,25 @@
 		<br>
 		<button type="button"  id="basement_enter" onclick="basement_enter()" class="btn-sm btn-primary" disabled>Enter</button>
                 <hr>
-		<h2 id ="status_basement" style="color:#984807"><strong></strong></h2>				
+		<h2 id ="status_basement" style="color:#984807"><strong></strong></h2>
+		<hr>
+		<button type="button"  id="surface_enter" onclick="kpmg_base_token()" class="btn btn-block btn-primary" >Token Recieved</button>
+                <h3 id="token_kpmg_base" style="color:#984807"><strong></strong></h2>
 	</div>
 	
     
 	<script>	
+	
+                function kpmg_base_token () { 
+                
+                    Parse.$ = jQuery;
+			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
+                        var token = Parse.Object.extend("base_kpmg");
+                        var token = new token();
+                        token.save({parkin_name: "KPMG"}).then(function(object) {
+                            document.getElementById("token_kpmg_base").innerHTML=token.createdAt;
+                    });
+                }
 	
                 function basement_available() {
                 Parse.$ = jQuery;
@@ -246,11 +260,24 @@
 		<br>
 		<button type="button"  id="pwc_enter" onclick="pwc_enter()" class="btn-sm btn-primary" disabled>Enter</button>
                 <hr>
-		<h2 id ="status_pwc" style="color:#984807"><strong></strong></h2>				
+		<h2 id ="status_pwc" style="color:#984807"><strong></strong></h2>
+		<hr>
+		<button type="button"  id="pwc_token" onclick="pwc_token()" class="btn btn-block btn-primary" >Token Recieved</button>
+                <h3 id="token_pwc" style="color:#984807"><strong></strong></h2>
 	</div>
 	
     
 	<script>	
+                function pwc_token () { 
+                
+                    Parse.$ = jQuery;
+			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
+                        var token = Parse.Object.extend("base_pwc");
+                        var token = new token();
+                        token.save({parkin_name: "PWC",}).then(function(object) {
+                            document.getElementById("token_pwc").innerHTML=token.createdAt;
+                    });
+                }
 	
                 function pwc_available() {
                 Parse.$ = jQuery;
