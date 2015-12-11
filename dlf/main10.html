@@ -69,14 +69,29 @@
 		<br>
 		<button type="button"  id="surface_enter" onclick="surface_enter()" class="btn-sm btn-primary" disabled>Enter</button>
                 <hr>
-		<h2 id ="status_surface" style="color:#984807"><strong></strong></h2>				
+                
+		<h2 id ="status_surface" style="color:#984807"><strong></strong></h2>
+		<hr>
+		<button type="button"  id="surface_enter" onclick="surface_token()" class="btn btn-block btn-primary" >Token Recieved</button>
+                <h3 id="token_surface" style="color:#984807"><strong></strong></h2>
 	</div>
 	
     
 	<script>	
 	
+                function surface_token() { 
+                        Parse.$ = jQuery;
+			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
+                        var token = Parse.Object.extend("surface_token");
+                        var token = new token();
+                        token.save({parkin_name: "Recieved"}).then(function(object) {
+                            document.getElementById("token_surface").innerHTML=token.createdAt;
+                    });
+                
+                }
+	
                 function surface_available() {
-                Parse.$ = jQuery;
+                        Parse.$ = jQuery;
 			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH"); 
 			var Slot =  Parse.Object.extend("KPMG");
 			var query = new Parse.Query(Slot);
