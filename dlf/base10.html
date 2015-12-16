@@ -17,15 +17,18 @@
     <script>
 	function refresh(){
 		Parse.$ = jQuery;
-                	Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH"); 
+                	Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
 			var Slot =  Parse.Object.extend("KPMG");
 			var query = new Parse.Query(Slot);
-		
-		
+
+
 			query.equalTo("objectId","8CeEdrKPnC");
 			query.first({
-					success: function(slot) {		
+					success: function(slot) {
 						document.getElementById("slot_basement").value = slot.get("parking_counter");
+            document.getElementById("basement_people").value=slot.get("waitlist");
+            document.getElementById("basement_waitlist").innerHTML = slot.get("waitlist");
+
 						if(slot.get("parking_counter")<21){
                                                     document.getElementById("status_basement").innerHTML = "Current Slot: "+slot.get("parking_counter");
                                                     document.getElementById("basement_min").disabled= "";
@@ -34,17 +37,17 @@
                                                     document.getElementById("basement_less").disabled= "disabled";
                                                     document.getElementById("basement_enter").disabled="";
 					}
-					else { 
+					else {
 						document.getElementById("status_basement").innerHTML = "Available";
 					}
 					}
 			});
-			
+
 			var Slot1 = Parse.Object.extend("PWC");
 			var query1=  new Parse.Query(Slot1);
 			query1.equalTo("objectId","quOVEYWF6d");
 			query1.first({
-					success: function(slot1) {		
+					success: function(slot1) {
 						document.getElementById("slot_pwc").value = slot1.get("parking_counter");
 						if(slot1.get("parking_counter")<21){
                                                     document.getElementById("status_pwc").innerHTML = "Current Slot: "+slot1.get("parking_counter");
@@ -54,13 +57,13 @@
                                                     document.getElementById("pwc_less").disabled= "disabled";
                                                     document.getElementById("pwc_enter").disabled="";
 					}
-					else { 
+					else {
 						document.getElementById("status_pwc").innerHTML = "Available";
 					}
 					}
 			});
 		}
-		
+
 		window.onload = function(){refresh();};
 	</script>
 
@@ -75,17 +78,17 @@
 		  </ul>
         </nav>
       </div>
-		
-	<!--KPMG BASEMENT PARKING-->	
-	
-		
+
+	<!--KPMG BASEMENT PARKING-->
+
+
       <div class="jumbotron">
 		<h2 style="color:#984807"><strong>KPMG Basement Parking</strong></h2>
 		<hr>
 		<button type="button"  id= "basement_less" onclick="update_basement()" class="btn-md btn-warning" >20 Slots Left</button>
 		<button type="button"  id= "basement_avail" onclick="basement_available()" class="btn-md btn-success" >Available</button>
 		<hr>
-		<button type="button"  id="basement_min" onclick="basement_minus()" class="btn-sm btn-danger" disabled>-</button>	
+		<button type="button"  id="basement_min" onclick="basement_minus()" class="btn-sm btn-danger" disabled>-</button>
 		<input id ="slot_basement" value="" type="number" disabled ></input>
 		<button type="button"  id="basement_add" onclick="basement_plus()" class="btn-sm btn-success" disabled>+</button>
 		<br>
@@ -95,13 +98,37 @@
 		<hr>
 		<button type="button"  id="surface_enter" onclick="kpmg_base_token()" class="btn btn-block btn-primary" >Token Recieved</button>
                 <h3 id="token_kpmg_base" style="color:#984807"><strong></strong></h2>
+                  <hr>
+                  <input id ="basement_people" value="" type="number"  ></input>
+                  <button type="button"   onclick="slots_taken()" class="btn-md btn-warning" >Enter people</button>
+                  <h2 id ="basement_waitlist" style="color:#984807"><strong></strong></h2>
+
 	</div>
-	
-    
-	<script>	
-	
-                function kpmg_base_token () { 
-                
+
+
+	<script>
+
+  function slots_taken() {
+    Parse.$ = jQuery;
+  Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
+  var Slot =  Parse.Object.extend("KPMG");
+  var query = new Parse.Query(Slot);
+  query.equalTo("objectId","8CeEdrKPnC");
+  query.first({
+  success: function(slot) {
+
+  slot.set("waitlist",parseInt(document.getElementById("basement_people").value));
+  slot.save();
+  document.getElementById("basement_people").value=slot.get("waitlist");
+  document.getElementById("basement_waitlist").innerHTML = slot.get("waitlist");
+
+  }
+  })
+
+  }
+
+                function kpmg_base_token () {
+
                     Parse.$ = jQuery;
 			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
                         var token = Parse.Object.extend("base_kpmg");
@@ -110,15 +137,15 @@
                             document.getElementById("token_kpmg_base").innerHTML=token.createdAt;
                     });
                 }
-	
+
                 function basement_available() {
                 Parse.$ = jQuery;
-			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH"); 
+			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
 			var Slot =  Parse.Object.extend("KPMG");
 			var query = new Parse.Query(Slot);
 			query.equalTo("objectId","8CeEdrKPnC");
 			query.first({
-				success: function(slot) { 
+				success: function(slot) {
 					slot.set("parking_counter",21);
                                         basement_insight(slot.get("parking_counter"));
 					slot.save();
@@ -132,13 +159,13 @@
 					slot.save();
 				}
 			})
-                
+
                 }
-		
-		
-		function basement_enter() { 
+
+
+		function basement_enter() {
                         Parse.$ = jQuery;
-			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH"); 
+			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
 			var Slot =  Parse.Object.extend("KPMG");
 			var query = new Parse.Query(Slot);
 			query.equalTo("objectId","8CeEdrKPnC");
@@ -154,18 +181,18 @@
 				}
 				}
 			})
-		
+
 		}
-		
+
 		function update_basement() {
 			Parse.$ = jQuery;
-			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH"); 
+			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
 			var Slot =  Parse.Object.extend("KPMG");
 			var query = new Parse.Query(Slot);
 			query.equalTo("objectId","8CeEdrKPnC");
 			query.first({
 				success: function(slot) {
-				
+
 					slot.set("parking_counter",20);
                                         basement_insight(slot.get("parking_counter"));
 				document.getElementById("slot_basement").value=slot.get("parking_counter");
@@ -179,15 +206,15 @@
 				}
 			})
 		}
-		
-		function basement_minus(){ 
+
+		function basement_minus(){
 			Parse.$ = jQuery;
-			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH"); 
+			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
 			var Slot =  Parse.Object.extend("KPMG");
 			var query = new Parse.Query(Slot);
 			query.equalTo("objectId","8CeEdrKPnC");
 			query.first({
-				success: function(slot) { 
+				success: function(slot) {
                                 basement_insight(slot.get("parking_counter"));
 					if(slot.get("parking_counter") > 0)
 				{
@@ -199,10 +226,10 @@
 				}
 			})
 		}
-		
-		function basement_plus() { 
+
+		function basement_plus() {
 			Parse.$ = jQuery;
-			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH"); 
+			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
 			var Slot =  Parse.Object.extend("KPMG");
 			var query = new Parse.Query(Slot);
 			query.equalTo("objectId","8CeEdrKPnC");
@@ -216,8 +243,8 @@
 					document.getElementById("slot_basement").value = slot.get("parking_counter");
 					document.getElementById("status_basement").innerHTML = "Current Slot: "+ slot.get("parking_counter");
 					}
-				
-				else { 
+
+				else {
                                         slot.set("parking_counter",21);
 					document.getElementById("basement_min").disabled= "disabled";
 					document.getElementById("basement_add").disabled= "disabled";
@@ -230,8 +257,8 @@
 				}
 			})
 		}
-		
-		function basement_insight(a) { 
+
+		function basement_insight(a) {
                         var a = a;
                         Parse.$ = jQuery;
                         Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
@@ -239,22 +266,22 @@
                         var ins = new ins();
                         ins.save({parkin_name: "BASEMENT",parkin_count: a}).then(function(object) {
                     });
-		
+
 		}
-		
+
 		</script>
-				
-				
-    <!--PWC  Basement PARKING-->	
-	
-		
+
+
+    <!--PWC  Basement PARKING-->
+
+
       <div class="jumbotron">
 		<h2 style="color:#984807"><strong>PWC Basement Parking</strong></h2>
 		<hr>
 		<button type="button"  id= "pwc_less" onclick="update_pwc()" class="btn-md btn-warning" >20 Slots Left</button>
 		<button type="button"  id= "pwc_avail" onclick="pwc_available()" class="btn-md btn-success" >Available</button>
 		<hr>
-		<button type="button"  id="pwc_min" onclick="pwc_minus()" class="btn-sm btn-danger" disabled>-</button>	
+		<button type="button"  id="pwc_min" onclick="pwc_minus()" class="btn-sm btn-danger" disabled>-</button>
 		<input id ="slot_pwc" value="" type="number" disabled ></input>
 		<button type="button"  id="pwc_add" onclick="pwc_plus()" class="btn-sm btn-success" disabled>+</button>
 		<br>
@@ -265,11 +292,11 @@
 		<button type="button"  id="pwc_token" onclick="pwc_token()" class="btn btn-block btn-primary" >Token Recieved</button>
                 <h3 id="token_pwc" style="color:#984807"><strong></strong></h2>
 	</div>
-	
-    
-	<script>	
-                function pwc_token () { 
-                
+
+
+	<script>
+                function pwc_token () {
+
                     Parse.$ = jQuery;
 			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
                         var token = Parse.Object.extend("base_pwc");
@@ -278,15 +305,15 @@
                             document.getElementById("token_pwc").innerHTML=token.createdAt;
                     });
                 }
-	
+
                 function pwc_available() {
                 Parse.$ = jQuery;
-			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH"); 
+			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
 			var Slot =  Parse.Object.extend("PWC");
 			var query = new Parse.Query(Slot);
 			query.equalTo("objectId","quOVEYWF6d");
 			query.first({
-				success: function(slot) { 
+				success: function(slot) {
 					slot.set("parking_counter",21);
 					pwc_insight(slot.get("parking_counter"));
 					slot.save();
@@ -300,13 +327,13 @@
 					slot.save();
 				}
 			})
-                
+
                 }
-		
-		
-		function pwc_enter() { 
+
+
+		function pwc_enter() {
                         Parse.$ = jQuery;
-			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH"); 
+			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
 			var Slot =  Parse.Object.extend("PWC");
 			var query = new Parse.Query(Slot);
 			query.equalTo("objectId","quOVEYWF6d");
@@ -322,17 +349,17 @@
 				}
 				}
 			})
-		
+
 		}
-		
+
 		function update_pwc() {
 			Parse.$ = jQuery;
-			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH"); 
+			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
 			var Slot =  Parse.Object.extend("PWC");
 			var query = new Parse.Query(Slot);
 			query.equalTo("objectId","quOVEYWF6d");
 			query.first({
-				success: function(slot) { 
+				success: function(slot) {
 					slot.set("parking_counter",20);
 					pwc_insight(slot.get("parking_counter"));
 					document.getElementById("slot_pwc").value=slot.get("parking_counter");
@@ -346,10 +373,10 @@
 				}
 			})
 		}
-		
-		function pwc_minus(){ 
+
+		function pwc_minus(){
 			Parse.$ = jQuery;
-			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH"); 
+			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
 			var Slot =  Parse.Object.extend("PWC");
 			var query = new Parse.Query(Slot);
 			query.equalTo("objectId","quOVEYWF6d");
@@ -366,15 +393,15 @@
 				}
 			})
 		}
-		
-		function pwc_plus() { 
+
+		function pwc_plus() {
 			Parse.$ = jQuery;
-			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH"); 
+			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
 			var Slot =  Parse.Object.extend("PWC");
 			var query = new Parse.Query(Slot);
 			query.equalTo("objectId","quOVEYWF6d");
 			query.first({
-				success: function(slot) { 
+				success: function(slot) {
 				pwc_insight(slot.get("parking_counter"));
 					if(slot.get("parking_counter") <  20)
 				{
@@ -383,8 +410,8 @@
 					document.getElementById("slot_pwc").value = slot.get("parking_counter");
 					document.getElementById("status_pwc").innerHTML = "Current Slot: "+ slot.get("parking_counter");
 					}
-				
-				else { 
+
+				else {
                                         slot.set("parking_counter",21);
 					document.getElementById("pwc_min").disabled= "disabled";
 					document.getElementById("pwc_add").disabled= "disabled";
@@ -397,8 +424,8 @@
 				}
 			})
 		}
-		
-		function pwc_insight(a) { 
+
+		function pwc_insight(a) {
                         var a = a;
                         Parse.$ = jQuery;
                         Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
@@ -406,14 +433,13 @@
                         var ins = new ins();
                         ins.save({parkin_name: "BASEMENT",parkin_count: a}).then(function(object) {
                     });
-		
+
 		}
-		
+
 		</script>
-				
-     		
-      </div>   
-    </div> 
+
+
+      </div>
+    </div>
   </body>
 </html>
-				
