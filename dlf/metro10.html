@@ -31,6 +31,26 @@
 						document.getElementById("status_metro").innerHTML = slot.get("parking_counter")
 					}
 			});
+
+      var Slot2 =  Parse.Object.extend("flour");
+      var query = new Parse.Query(Slot2);
+      query.equalTo("objectId","fAKMXLY847");
+      query.first({
+          success: function(slot2) {
+            document.getElementById("flour_slot_metro").value = slot2.get("parking_counter");
+            if(slot2.get("parking_counter")<21){
+                                                    document.getElementById("flour_status_metro").innerHTML = "Current Slot: "+slot2.get("parking_counter");
+                                                    document.getElementById("flour_metro_min").disabled= "";
+                                                    document.getElementById("flour_slot_metro").disabled= "";
+                                                    document.getElementById("flour_metro_add").disabled= "";
+                                                    document.getElementById("flour_metro_less").disabled= "disabled";
+                                                    document.getElementById("flour_metro_enter").disabled="";
+          }
+          else {
+            document.getElementById("flour_status_metro").innerHTML = "Available";
+          }
+          }
+      });
 		}
 		window.onload = function(){refresh();};
 	</script>
@@ -140,14 +160,14 @@
     <div class="jumbotron">
       <h2 style="color:#984807"><strong>Flour metro Parking</strong></h2>
       <hr>
-      <button type="button"  id= "flour_metro_less" onclick="update_metro()" class="btn-md btn-warning" >30 Slots Left</button>
-      <button type="button"  id= "flour_metro_avail" onclick="metro_available()" class="btn-md btn-success" >Available</button>
+      <button type="button"  id= "flour_metro_less" onclick="flour_update_metro()" class="btn-md btn-warning" >30 Slots Left</button>
+      <button type="button"  id= "flour_metro_avail" onclick="flour_metro_available()" class="btn-md btn-success" >Available</button>
       <hr>
-      <button type="button"  id="flour_metro_min" onclick="metro_minus()" class="btn-sm btn-danger" disabled>-</button>
+      <button type="button"  id="flour_metro_min" onclick="flour_metro_minus()" class="btn-sm btn-danger" disabled>-</button>
       <input id ="flour_slot_metro" value="" type="number" disabled ></input>
-      <button type="button"  id="flour_metro_add" onclick="metro_plus()" class="btn-sm btn-success" disabled>+</button>
+      <button type="button"  id="flour_metro_add" onclick="flour_metro_plus()" class="btn-sm btn-success" disabled>+</button>
       <br>
-      <button type="button"  id="flour_metro_enter" onclick="metro_enter()" class="btn-sm btn-primary" disabled>Enter</button>
+      <button type="button"  id="flour_metro_enter" onclick="flour_metro_enter()" class="btn-sm btn-primary" disabled>Enter</button>
       <hr>
       <h2 id ="flour_status_metro" style="color:#984807"><strong></strong></h2>
       <hr>
@@ -155,7 +175,7 @@
 
 
     <script>
-                  function metro_available() {
+                  function flour_metro_available() {
                           Parse.$ = jQuery;
                           Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
                           var Slot =  Parse.Object.extend("flour");
@@ -177,7 +197,7 @@
                   }
 
 
-                    function metro_enter() {
+                    function flour_metro_enter() {
                           Parse.$ = jQuery;
                           Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
                           var Slot =  Parse.Object.extend("flour");
@@ -196,12 +216,12 @@
                           })
                     }
 
-                  function update_metro() {
+                  function flour_update_metro() {
                     Parse.$ = jQuery;
                     Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
                     var Slot =  Parse.Object.extend("flour");
                     var query = new Parse.Query(Slot);
-                    query.equalTo("objectId","1dDJ4kgypx");
+                    query.equalTo("objectId","fAKMXLY847");
                     query.first({
                       success: function(slot) {
                         slot.set("parking_counter",30);
@@ -217,12 +237,12 @@
                     })
                   }
 
-                  function metro_minus(){
+                  function flour_metro_minus(){
                     Parse.$ = jQuery;
                     Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
                     var Slot =  Parse.Object.extend("flour");
                     var query = new Parse.Query(Slot);
-                    query.equalTo("objectId","1dDJ4kgypx");
+                    query.equalTo("objectId","fAKMXLY847");
                     query.first({
                       success: function(slot) {
                         if(slot.get("parking_counter") > 0)
@@ -236,7 +256,7 @@
                     })
                   }
 
-                  function metro_plus() {
+                  function flour_metro_plus() {
                     Parse.$ = jQuery;
                     Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
                     var Slot =  Parse.Object.extend("flour");

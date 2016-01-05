@@ -99,93 +99,97 @@
         </nav>
       </div>
 
-	<!--KPMG BASEMENT PARKING-->
+
+      <!-- KPMG Basement Parking --->
 
 
-    <div class="jumbotron">
-		<h2 style="color:#984807"><strong>KPMG Basement Parking</strong></h2>
-		<hr>
-		<button type="button"  id= "basement_less" onclick="update_basement()" class="btn-md btn-warning" >20 Slots Left</button>
-		<button type="button"  id= "basement_avail" onclick="basement_available()" class="btn-md btn-success" >Available</button>
-		<hr>
-		<button type="button"  id="basement_min" onclick="basement_minus()" class="btn-sm btn-danger" disabled>-</button>
-		<input id ="slot_basement" value="" type="number" disabled ></input>
-		<button type="button"  id="basement_add" onclick="basement_plus()" class="btn-sm btn-success" disabled>+</button>
-		<br>
-		<button type="button"  id="basement_enter" onclick="basement_enter()" class="btn-sm btn-primary" disabled>Enter</button>
-                <hr>
-		<h2 id ="status_basement" style="color:#984807"><strong></strong></h2>
+            <div class="jumbotron">
+      		<h2 style="color:#984807"><strong>KPMG Basement Parking</strong></h2>
+      		<hr>
+      		<button type="button"  id= "basement_less" onclick="update_basement()" class="btn-md btn-warning" >20 Slots Left</button>
+      		<button type="button"  id= "basement_avail" onclick="basement_available()" class="btn-md btn-success" >Available</button>
+      		<hr>
+      		<button type="button"  id="basement_min" onclick="basement_minus()" class="btn-sm btn-danger" disabled>-</button>
+      		<input id ="slot_basement" value="" type="number" disabled ></input>
+      		<button type="button"  id="basement_add" onclick="basement_plus()" class="btn-sm btn-success" disabled>+</button>
+      		<br>
+      		<button type="button"  id="basement_enter" onclick="basement_enter()" class="btn-sm btn-primary" disabled>Enter</button>
+                      <hr>
+      		<h2 id ="status_basement" style="color:#984807"><strong></strong></h2>
 
-                  <input id ="basement_people" value="" type="number"  ></input>
-                  <button type="button"   onclick="slots_taken()" class="btn-md btn-warning" >Enter people</button>
-                  <h2 id ="basement_waitlist" style="color:#984807"><strong></strong></h2>
+                        <input id ="basement_people" value="" type="number"  ></input>
+                        <button type="button"   onclick="slots_taken()" class="btn-md btn-warning" >Enter people</button>
+                        <h2 id ="basement_waitlist" style="color:#984807"><strong></strong></h2>
 
-	</div>
-
-
-	<script>
-                function slots_taken() {
-                        Parse.$ = jQuery;
-                        Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
-                        var Slot =  Parse.Object.extend("KPMG");
-                        var query = new Parse.Query(Slot);
-                        query.equalTo("objectId","8CeEdrKPnC");
-                        query.first({
-                        success: function(slot) {
-
-                        slot.set("waitlist",parseInt(document.getElementById("basement_people").value));
-                        slot.save();
-                        document.getElementById("basement_people").value=slot.get("waitlist");
-                        document.getElementById("basement_waitlist").innerHTML = slot.get("waitlist");
-
-                        }
-                        })
-
-                }
-
-                function basement_available() {
-                   Parse.$ = jQuery;
-			             Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
-			             var Slot =  Parse.Object.extend("KPMG");
-			             var query = new Parse.Query(Slot);
-			                query.equalTo("objectId","8CeEdrKPnC");
-			                   query.first({
-                				success: function(slot) {
-                					slot.set("parking_counter",21);
-                					slot.save();
-                					//document.getElementById("slot_basement").value=slot.get("parking_counter");
-                					document.getElementById("status_basement").innerHTML ="Current status" + ": " + "Available";
-                					document.getElementById("basement_min").disabled= "disabled";
-                					document.getElementById("basement_add").disabled= "disabled";
-                					document.getElementById("basement_less").disabled= "";
-                					document.getElementById("basement_enter").disabled="disabled";
-                					document.getElementById("slot_basement").disabled="disabled";
-                					slot.save();
-                				}
-                			})
-                }
+      	</div>
 
 
-          		function basement_enter() {
-                Parse.$ = jQuery;
-          			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
-          			var Slot =  Parse.Object.extend("KPMG");
-          			var query = new Parse.Query(Slot);
-          			query.equalTo("objectId","8CeEdrKPnC");
-          			query.first({
-          				success: function(slot) {
-          				if(document.getElementById("slot_basement").value < 21 && document.getElementById("slot_basement").value >=0)
-                                              {
-          					slot.set("parking_counter",parseInt(document.getElementById("slot_basement").value));
-          					slot.save();
-          					document.getElementById("slot_basement").value=slot.get("parking_counter");
-          					document.getElementById("status_basement").innerHTML = slot.get("parking_counter");
-          				}
-          				}
-          			})
-
-          		}
-
+      	<script>
+        function slots_taken() {
+          Parse.$ = jQuery;
+        Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
+        var Slot =  Parse.Object.extend("KPMG");
+        var query = new Parse.Query(Slot);
+        query.equalTo("objectId","8CeEdrKPnC");
+        query.first({
+        success: function(slot) {
+        slot.set("waitlist",parseInt(document.getElementById("basement_people").value));
+        slot.save();
+        document.getElementById("basement_people").value=slot.get("waitlist");
+        document.getElementById("basement_waitlist").innerHTML = slot.get("waitlist");
+        }
+        })
+        }
+                      function kpmg_base_token () {
+                          Parse.$ = jQuery;
+      			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
+                              var token = Parse.Object.extend("base_kpmg");
+                              var token = new token();
+                              token.save({parkin_name: "KPMG"}).then(function(object) {
+                                  document.getElementById("token_kpmg_base").innerHTML=token.createdAt;
+                          });
+                      }
+                      function basement_available() {
+                      Parse.$ = jQuery;
+      			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
+      			var Slot =  Parse.Object.extend("KPMG");
+      			var query = new Parse.Query(Slot);
+      			query.equalTo("objectId","8CeEdrKPnC");
+      			query.first({
+      				success: function(slot) {
+      					slot.set("parking_counter",21);
+                                              basement_insight(slot.get("parking_counter"));
+      					slot.save();
+      					//document.getElementById("slot_basement").value=slot.get("parking_counter");
+      					document.getElementById("status_basement").innerHTML ="Current status" + ": " + "Available";
+      					document.getElementById("basement_min").disabled= "disabled";
+      					document.getElementById("basement_add").disabled= "disabled";
+      					document.getElementById("basement_less").disabled= "";
+      					document.getElementById("basement_enter").disabled="disabled";
+      					document.getElementById("slot_basement").disabled="disabled";
+      					slot.save();
+      				}
+      			})
+                      }
+      		function basement_enter() {
+                              Parse.$ = jQuery;
+      			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
+      			var Slot =  Parse.Object.extend("KPMG");
+      			var query = new Parse.Query(Slot);
+      			query.equalTo("objectId","8CeEdrKPnC");
+      			query.first({
+      				success: function(slot) {
+                                      basement_insight(slot.get("parking_counter"));
+      				if(document.getElementById("slot_basement").value < 21 && document.getElementById("slot_basement").value >=0)
+                                          {
+      					slot.set("parking_counter",parseInt(document.getElementById("slot_basement").value));
+      					slot.save();
+      					document.getElementById("slot_basement").value=slot.get("parking_counter");
+      					document.getElementById("status_basement").innerHTML = slot.get("parking_counter");
+      				}
+      				}
+      			})
+      		}
       		function update_basement() {
       			Parse.$ = jQuery;
       			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
@@ -194,12 +198,12 @@
       			query.equalTo("objectId","8CeEdrKPnC");
       			query.first({
       				success: function(slot) {
-
       					slot.set("parking_counter",20);
+                                              basement_insight(slot.get("parking_counter"));
       				document.getElementById("slot_basement").value=slot.get("parking_counter");
       					document.getElementById("status_basement").innerHTML ="Current status" + ": " + slot.get("parking_counter");
       					document.getElementById("basement_min").disabled= "";
-                document.getElementById("slot_basement").disabled= "";
+                                              document.getElementById("slot_basement").disabled= "";
       					document.getElementById("basement_add").disabled= "";
       					document.getElementById("basement_less").disabled= "disabled";
       					document.getElementById("basement_enter").disabled="";
@@ -207,7 +211,6 @@
       				}
       			})
       		}
-
       		function basement_minus(){
       			Parse.$ = jQuery;
       			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
@@ -216,6 +219,7 @@
       			query.equalTo("objectId","8CeEdrKPnC");
       			query.first({
       				success: function(slot) {
+                                      basement_insight(slot.get("parking_counter"));
       					if(slot.get("parking_counter") > 0)
       				{
       					slot.increment("parking_counter", -1);
@@ -226,7 +230,6 @@
       				}
       			})
       		}
-
       		function basement_plus() {
       			Parse.$ = jQuery;
       			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
@@ -235,6 +238,7 @@
       			query.equalTo("objectId","8CeEdrKPnC");
       			query.first({
       				success: function(slot) {
+      				basement_insight(slot.get("parking_counter"));
       					if(slot.get("parking_counter") <  20)
       				{
       					slot.increment("parking_counter", 1);
@@ -242,9 +246,8 @@
       					document.getElementById("slot_basement").value = slot.get("parking_counter");
       					document.getElementById("status_basement").innerHTML = "Current Slot: "+ slot.get("parking_counter");
       					}
-
       				else {
-                slot.set("parking_counter",21);
+                                              slot.set("parking_counter",21);
       					document.getElementById("basement_min").disabled= "disabled";
       					document.getElementById("basement_add").disabled= "disabled";
       					document.getElementById("basement_less").disabled= "";
@@ -256,8 +259,16 @@
       				}
       			})
       		}
-
-		</script>
+      		function basement_insight(a) {
+                              var a = a;
+                              Parse.$ = jQuery;
+                              Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
+                              var ins = Parse.Object.extend("kpmg_insights");
+                              var ins = new ins();
+                              ins.save({parkin_name: "BASEMENT",parkin_count: a}).then(function(object) {
+                          });
+      		}
+      		</script>
 
 
     <!--PWC  Basement PARKING-->
@@ -404,14 +415,14 @@
     <div class="jumbotron">
       <h2 style="color:#984807"><strong>Fllour basement Parking</strong></h2>
       <hr>
-      <button type="button"  id= "flour_basement_less" onclick="update_basement()" class="btn-md btn-warning" >20 Slots Left</button>
-      <button type="button"  id= "flour_basement_avail" onclick="basement_available()" class="btn-md btn-success" >Available</button>
+      <button type="button"  id= "flour_basement_less" onclick="flour_update_basement()" class="btn-md btn-warning" >20 Slots Left</button>
+      <button type="button"  id= "flour_basement_avail" onclick="flour_basement_available()" class="btn-md btn-success" >Available</button>
       <hr>
-      <button type="button"  id="flour_basement_min" onclick="basement_minus()" class="btn-sm btn-danger" disabled>-</button>
+      <button type="button"  id="flour_basement_min" onclick="flour_basement_minus()" class="btn-sm btn-danger" disabled>-</button>
       <input id ="flour_slot_basement" value="" type="number" disabled ></input>
-      <button type="button"  id="flour_basement_add" onclick="basement_plus()" class="btn-sm btn-success" disabled>+</button>
+      <button type="button"  id="flour_basement_add" onclick="flour_basement_plus()" class="btn-sm btn-success" disabled>+</button>
       <br>
-      <button type="button"  id="flour_basement_enter" onclick="basement_enter()" class="btn-sm btn-primary" disabled>Enter</button>
+      <button type="button"  id="flour_basement_enter" onclick="flour_basement_enter()" class="btn-sm btn-primary" disabled>Enter</button>
       <hr>
       <h2 id ="flour_status_basement" style="color:#984807"><strong></strong></h2>
       <hr>
@@ -419,7 +430,7 @@
 
 
     <script>
-                  function basement_available() {
+                  function flour_basement_available() {
                           Parse.$ = jQuery;
                           Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
                           var Slot =  Parse.Object.extend("flour");
@@ -441,7 +452,7 @@
                   }
 
 
-                    function basement_enter() {
+                    function flour_basement_enter() {
                           Parse.$ = jQuery;
                           Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
                           var Slot =  Parse.Object.extend("flour");
@@ -460,7 +471,7 @@
                           })
                     }
 
-                  function update_basement() {
+                  function flour_update_basement() {
                     Parse.$ = jQuery;
                     Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
                     var Slot =  Parse.Object.extend("flour");
@@ -481,7 +492,7 @@
                     })
                   }
 
-                  function basement_minus(){
+                  function flour_basement_minus(){
                     Parse.$ = jQuery;
                     Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
                     var Slot =  Parse.Object.extend("flour");
@@ -500,7 +511,7 @@
                     })
                   }
 
-                  function basement_plus() {
+                  function flour_basement_plus() {
                     Parse.$ = jQuery;
                     Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
                     var Slot =  Parse.Object.extend("flour");
