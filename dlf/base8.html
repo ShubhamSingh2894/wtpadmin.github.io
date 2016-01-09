@@ -38,6 +38,27 @@
         					}
         			});
         		}
+            var Slot1 =  Parse.Object.extend("flour");
+            var query = new Parse.Query(Slot1);
+            query.equalTo("objectId","lSIWpoJ8la");
+            query.first({
+                success: function(slot1) {
+                  document.getElementById("flour_slot_base").value = slot1.get("parking_counter");
+                  if(slot1.get("parking_counter")<21){
+                                                          document.getElementById("flour_status_base").innerHTML = "Current Slot: "+slot1.get("parking_counter");
+                                                          document.getElementById("flour_base_min").disabled= "";
+                                                          document.getElementById("flour_slot_base").disabled= "";
+                                                          document.getElementById("flour_base_add").disabled= "";
+                                                          document.getElementById("flour_base_less").disabled= "disabled";
+                                                          document.getElementById("flour_base_enter").disabled="";
+                }
+                else {
+                  document.getElementById("flour_status_base").innerHTML = "Available";
+                }
+                }
+            });
+
+
 
         		window.onload = function(){refresh();};
       </script>
@@ -184,6 +205,136 @@
             				}
             			})
             		}
+</script>
+
+      <div class="jumbotron">
+        <h2 style="color:#984807"><strong>Flour base Parking</strong></h2>
+        <hr>
+        <button type="button"  id= "flour_base_less" onclick="flour_update_base()" class="btn-md btn-warning" >20 Slots Left</button>
+        <button type="button"  id= "flour_base_avail" onclick="flour_base_available()" class="btn-md btn-success" >Available</button>
+        <hr>
+        <button type="button"  id="flour_base_min" onclick="flour_base_minus()" class="btn-sm btn-danger" disabled>-</button>
+        <input id ="flour_slot_base" value="" type="number" disabled ></input>
+        <button type="button"  id="flour_base_add" onclick="flour_base_plus()" class="btn-sm btn-success" disabled>+</button>
+        <br>
+        <button type="button"  id="flour_base_enter" onclick="flour_base_enter()" class="btn-sm btn-primary" disabled>Enter</button>
+        <hr>
+        <h2 id ="flour_status_base" style="color:#984807"><strong></strong></h2>
+        <hr>
+      </div>
+
+
+      <script>
+                    function flour_base_available() {
+                            Parse.$ = jQuery;
+                            Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
+                            var Slot =  Parse.Object.extend("flour");
+                            var query = new Parse.Query(Slot);
+                            query.equalTo("objectId","lSIWpoJ8la");
+                            query.first({
+                                  success: function(slot) {
+                                         slot.set("parking_counter",21);
+                                         slot.save();
+                                        document.getElementById("flour_status_base").innerHTML ="Available";
+                                        document.getElementById("flour_base_min").disabled= "disabled";
+                                        document.getElementById("flour_base_add").disabled= "disabled";
+                                        document.getElementById("flour_base_less").disabled= "";
+                                        document.getElementById("flour_base_enter").disabled="disabled";
+                                        document.getElementById("flour_slot_base").disabled="disabled";
+                                        slot.save();
+                                      }
+                            })
+                    }
+
+
+                      function flour_base_enter() {
+                            Parse.$ = jQuery;
+                            Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
+                            var Slot =  Parse.Object.extend("flour");
+                            var query = new Parse.Query(Slot);
+                            query.equalTo("objectId","lSIWpoJ8la");
+                            query.first({
+                              success: function(slot) {
+                              if(document.getElementById("flour_slot_base").value < 21 && document.getElementById("flour_slot_base").value >=0)
+                                                          {
+                                slot.set("parking_counter",parseInt(document.getElementById("flour_slot_base").value));
+                                slot.save();
+                                document.getElementById("flour_slot_base").value=slot.get("parking_counter");
+                                document.getElementById("flour_status_base").innerHTML = slot.get("parking_counter");
+                              }
+                              }
+                            })
+                      }
+
+                    function flour_update_base() {
+                      Parse.$ = jQuery;
+                      Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
+                      var Slot =  Parse.Object.extend("flour");
+                      var query = new Parse.Query(Slot);
+                      query.equalTo("objectId","lSIWpoJ8la");
+                      query.first({
+                        success: function(slot) {
+                          slot.set("parking_counter",20);
+                          document.getElementById("flour_slot_base").value=slot.get("parking_counter");
+                          document.getElementById("flour_status_base").innerHTML ="Current status" + ": " + slot.get("parking_counter");
+                          document.getElementById("flour_base_min").disabled= "";
+                          document.getElementById("flour_slot_base").disabled= "";
+                          document.getElementById("flour_base_add").disabled= "";
+                          document.getElementById("flour_base_less").disabled= "disabled";
+                          document.getElementById("flour_base_enter").disabled="";
+                          slot.save();
+                        }
+                      })
+                    }
+
+                    function flour_base_minus(){
+                      Parse.$ = jQuery;
+                      Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
+                      var Slot =  Parse.Object.extend("flour");
+                      var query = new Parse.Query(Slot);
+                      query.equalTo("objectId","lSIWpoJ8la");
+                      query.first({
+                        success: function(slot) {
+                          if(slot.get("parking_counter") > 0)
+                        {
+                          slot.increment("parking_counter", -1);
+                          slot.save();
+                          document.getElementById("flour_slot_base").value = slot.get("parking_counter");
+                          document.getElementById("flour_status_base").innerHTML = "Current Slot: "+slot.get("parking_counter");
+                          }
+                        }
+                      })
+                    }
+
+                    function flour_base_plus() {
+                      Parse.$ = jQuery;
+                      Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
+                      var Slot =  Parse.Object.extend("flour");
+                      var query = new Parse.Query(Slot);
+                      query.equalTo("objectId","lSIWpoJ8la");
+                      query.first({
+                        success: function(slot) {
+                          if(slot.get("parking_counter") <  20)
+                              {
+                          slot.increment("parking_counter", 1);
+                          slot.save();
+                          document.getElementById("flour_slot_base").value = slot.get("parking_counter");
+                          document.getElementById("flour_status_base").innerHTML = "Current Slot: "+ slot.get("parking_counter");
+                          }
+
+                        else {
+                          slot.set("parking_counter",21);
+                          document.getElementById("flour_base_min").disabled= "disabled";
+                          document.getElementById("flour_base_add").disabled= "disabled";
+                          document.getElementById("flour_base_less").disabled= "";
+                          document.getElementById("flour_base_enter").disabled="disabled";
+                          document.getElementById("flour_slot_base").disabled="disabled";
+                          document.getElementById("flour_status_base").innerHTML ="Available";
+                          slot.save();
+                          }
+                        }
+                      })
+                    }
 
       </script>
 
