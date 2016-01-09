@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Welcome base8</title>
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/jumbotron-narrow.css" rel="stylesheet">
+    <script src="//www.parsecdn.com/js/parse-1.6.7.min.js"></script>
+    <script src="../js/jquery-2.1.4.min.js"></script>
+    <script>
+        	function refresh() {
+        		Parse.$ = jQuery;
+              Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
+        			var Slot =  Parse.Object.extend("PWC");
+        			var query = new Parse.Query(Slot);
+        			query.equalTo("objectId","quOVEYWF6d");
+        			query.first({
+        					success: function(slot) {
+        						document.getElementById("pwc_slot_surface").value = slot.get("parking_counter");
+        						if(slot.get("parking_counter")<21){
+                                                            document.getElementById("pwc_status_surface").innerHTML = "Current Slot: "+slot.get("parking_counter");
+                                                            document.getElementById("pwc_base_min").disabled= "";
+                                                            document.getElementById("pwc_slot_surface").disabled= "";
+                                                            document.getElementById("pwc_base_add").disabled= "";
+                                                            document.getElementById("pwc_base_less").disabled= "disabled";
+                                                            document.getElementById("pwc_base_enter").disabled="";
+        					}
+        					else {
+        						document.getElementById("pwc_status_surface").innerHTML = "Available";
+        					}
+        					}
+        			});
+        		}
+
+        		window.onload = function(){refresh();};
+      </script>
+
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header clearfix">
+        <nav>
+          <ul class ="nav nav-pills pull-right">
+			         <li role="presentation" class="active"><a href="../index.html">Logout</a></li>
+		      </ul>
+        </nav>
+      </div>
+	<!--- pwc Basement PARKING-->
+
+  <div class="jumbotron">
+		<h2 style="color:#984807"><strong>PWC Basement Parking (Building 8)</strong></h2>
+		<hr>
+		<button type="button"  id= "pwc_base_less" onclick="update_surface()" class="btn-md btn-warning" >20 Slots Left</button>
+		<button type="button"  id= "pwc_base_avail" onclick="surface_available()" class="btn-md btn-success" >Available</button>
+		<hr>
+		<button type="button"  id="pwc_base_min" onclick="surface_minus()" class="btn-sm btn-danger" disabled>-</button>
+		<input id ="pwc_slot_surface" value="" type="number" disabled ></input>
+		<button type="button"  id="pwc_base_add" onclick="surface_plus()" class="btn-sm btn-success" disabled>+</button>
+		<br>
+		<button type="button"  id="pwc_base_enter" onclick="surface_enter()" class="btn-sm btn-primary" disabled>Enter</button>
+    <hr>
+		<h2 id ="pwc_status_surface" style="color:#984807"><strong></strong></h2>
+		<hr>
+	</div>
+
+
+	<script>
+                function surface_available() {
+                        Parse.$ = jQuery;
+			                  Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
+			                  var Slot =  Parse.Object.extend("PWC");
+			                  var query = new Parse.Query(Slot);
+			                  query.equalTo("objectId","quOVEYWF6d");
+			                  query.first({
+				                      success: function(slot) {
+					                           slot.set("parking_counter",21);
+					                           slot.save();
+                                    document.getElementById("pwc_status_surface").innerHTML ="Available";
+                          					document.getElementById("pwc_base_min").disabled= "disabled";
+                          					document.getElementById("pwc_base_add").disabled= "disabled";
+                          					document.getElementById("pwc_base_less").disabled= "";
+                          					document.getElementById("pwc_base_enter").disabled="disabled";
+                          					document.getElementById("pwc_slot_surface").disabled="disabled";
+                          					slot.save();
+                          				}
+                        })
+                }
+
+
+		              function surface_enter() {
+                        Parse.$ = jQuery;
+			                  Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
+			                  var Slot =  Parse.Object.extend("PWC");
+			                  var query = new Parse.Query(Slot);
+			                  query.equalTo("objectId","quOVEYWF6d");
+                  			query.first({
+                  				success: function(slot) {
+                  				if(document.getElementById("pwc_slot_surface").value < 21 && document.getElementById("pwc_slot_surface").value >=0)
+                                                      {
+                  					slot.set("parking_counter",parseInt(document.getElementById("pwc_slot_surface").value));
+                  					slot.save();
+                  					document.getElementById("pwc_slot_surface").value=slot.get("parking_counter");
+                  					document.getElementById("pwc_status_surface").innerHTML = slot.get("parking_counter");
+                  				}
+                  				}
+                  			})
+                  }
+
+            		function update_surface() {
+            			Parse.$ = jQuery;
+            			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
+            			var Slot =  Parse.Object.extend("PWC");
+            			var query = new Parse.Query(Slot);
+            			query.equalTo("objectId","quOVEYWF6d");
+            			query.first({
+            				success: function(slot) {
+            					slot.set("parking_counter",20);
+            					document.getElementById("pwc_slot_surface").value=slot.get("parking_counter");
+            					document.getElementById("pwc_status_surface").innerHTML ="Current status" + ": " + slot.get("parking_counter");
+            					document.getElementById("pwc_base_min").disabled= "";
+                      document.getElementById("pwc_slot_surface").disabled= "";
+            					document.getElementById("pwc_base_add").disabled= "";
+            					document.getElementById("pwc_base_less").disabled= "disabled";
+            					document.getElementById("pwc_base_enter").disabled="";
+            					slot.save();
+            				}
+            			})
+            		}
+
+            		function surface_minus(){
+            			Parse.$ = jQuery;
+            			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
+            			var Slot =  Parse.Object.extend("PWC");
+            			var query = new Parse.Query(Slot);
+            			query.equalTo("objectId","quOVEYWF6d");
+            			query.first({
+            				success: function(slot) {
+            					if(slot.get("parking_counter") > 0)
+            				{
+            					slot.increment("parking_counter", -1);
+            					slot.save();
+            					document.getElementById("pwc_slot_surface").value = slot.get("parking_counter");
+            					document.getElementById("pwc_status_surface").innerHTML = "Current Slot: "+slot.get("parking_counter");
+            					}
+            				}
+            			})
+            		}
+
+            		function surface_plus() {
+            			Parse.$ = jQuery;
+            			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
+            			var Slot =  Parse.Object.extend("PWC");
+            			var query = new Parse.Query(Slot);
+            			query.equalTo("objectId","quOVEYWF6d");
+            			query.first({
+            				success: function(slot) {
+            					if(slot.get("parking_counter") <  20)
+            				      {
+            					slot.increment("parking_counter", 1);
+            					slot.save();
+            					document.getElementById("pwc_slot_surface").value = slot.get("parking_counter");
+            					document.getElementById("pwc_status_surface").innerHTML = "Current Slot: "+ slot.get("parking_counter");
+            					}
+
+            				else {
+                      slot.set("parking_counter",21);
+            					document.getElementById("pwc_base_min").disabled= "disabled";
+            					document.getElementById("pwc_base_add").disabled= "disabled";
+            					document.getElementById("pwc_base_less").disabled= "";
+            					document.getElementById("pwc_base_enter").disabled="disabled";
+            					document.getElementById("pwc_slot_surface").disabled="disabled";
+            					document.getElementById("pwc_status_surface").innerHTML ="Available";
+            					slot.save();
+            					}
+            				}
+            			})
+            		}
+
+      </script>
+
+
+      </div>
+    </div>
+  </body>
+</html>

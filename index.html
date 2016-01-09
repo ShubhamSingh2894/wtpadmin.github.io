@@ -26,18 +26,18 @@
 		<button type="button" id="surface" onclick="authen()" class="btn btn-success">Sign In</button>
 	</form>
 	</div>
-	
+
 	<script>
-	function authen() { 
+	function authen() {
 			Parse.$ = jQuery;
-			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH"); 
+			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
 			var User = Parse.Object.extend("User");
 			var query = new Parse.Query(User);
-			query.get("wIde8ZPvWa",{ 
+			query.get("wIde8ZPvWa",{
 			success: function(user) {
 			console.log(user.get("username"));
-			
-				if(document.getElementById("uname").value == user.get("username")) 
+
+				if(document.getElementById("uname").value == user.get("username"))
 					{
 						console.log("entered");
 						window.location.href = "dlf/main10.html";
@@ -46,12 +46,12 @@
 			error: function(object, error) {
 				}
 			});
-			
-			query.get("87eai4RQYk",{ 
+
+			query.get("87eai4RQYk",{
 			success: function(user) {
 			console.log(user.get("username"));
-			
-				if(document.getElementById("uname").value == user.get("username")) 
+
+				if(document.getElementById("uname").value == user.get("username"))
 					{
 						console.log("entered");
 						window.location.href = "dlf/metro10.html";
@@ -60,12 +60,12 @@
 			error: function(object, error) {
 				}
 			});
-			
-			query.get("Z40uwotciO",{ 
+
+			query.get("Z40uwotciO",{
 			success: function(user) {
 			console.log(user.get("username"));
-			
-				if(document.getElementById("uname").value == user.get("username")) 
+
+				if(document.getElementById("uname").value == user.get("username"))
 					{
 						console.log("entered");
 						window.location.href = "dlf/base10.html";
@@ -74,9 +74,23 @@
 			error: function(object, error) {
 				}
 			});
-			
-	}	
+
+      query.get("5DZkBK58cc",{
+			success: function(user) {
+			console.log(user.get("username"));
+
+				if(document.getElementById("uname").value == user.get("username"))
+					{
+						console.log("entered");
+						window.location.href = "dlf/base8.html";
+						}
+					},
+			error: function(object, error) {
+				}
+			});
+
+	}
 	</script>
-	
+
   </body>
 </html>
