@@ -216,14 +216,14 @@
     <div class="jumbotron">
       <h2 style="color:#984807"><strong>Flour Surface Parking</strong></h2>
       <hr>
-      <button type="button"  id= "flour_surface_less" onclick="update_surface()" class="btn-md btn-warning" >20 Slots Left</button>
-      <button type="button"  id= "flour_surface_avail" onclick="surface_available()" class="btn-md btn-success" >Available</button>
+      <button type="button"  id= "flour_surface_less" onclick="flourupdate_surface()" class="btn-md btn-warning" >20 Slots Left</button>
+      <button type="button"  id= "flour_surface_avail" onclick="floursurface_available()" class="btn-md btn-success" >Available</button>
       <hr>
-      <button type="button"  id="flour_surface_min" onclick="surface_minus()" class="btn-sm btn-danger" disabled>-</button>
+      <button type="button"  id="flour_surface_min" onclick="floursurface_minus()" class="btn-sm btn-danger" disabled>-</button>
       <input id ="flour_slot_surface" value="" type="number" disabled ></input>
-      <button type="button"  id="flour_surface_add" onclick="surface_plus()" class="btn-sm btn-success" disabled>+</button>
+      <button type="button"  id="flour_surface_add" onclick="floursurface_plus()" class="btn-sm btn-success" disabled>+</button>
       <br>
-      <button type="button"  id="flour_surface_enter" onclick="surface_enter()" class="btn-sm btn-primary" disabled>Enter</button>
+      <button type="button"  id="flour_surface_enter" onclick="floursurface_enter()" class="btn-sm btn-primary" disabled>Enter</button>
       <hr>
       <h2 id ="flour_status_surface" style="color:#984807"><strong></strong></h2>
       <hr>
@@ -231,7 +231,7 @@
 
 
     <script>
-                  function surface_available() {
+                  function floursurface_available() {
                           Parse.$ = jQuery;
                           Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
                           var Slot =  Parse.Object.extend("flour");
@@ -253,7 +253,7 @@
                   }
 
 
-                    function surface_enter() {
+                    function floursurface_enter() {
                           Parse.$ = jQuery;
                           Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
                           var Slot =  Parse.Object.extend("flour");
@@ -272,7 +272,7 @@
                           })
                     }
 
-                  function update_surface() {
+                  function flourupdate_surface() {
                     Parse.$ = jQuery;
                     Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
                     var Slot =  Parse.Object.extend("flour");
@@ -293,7 +293,7 @@
                     })
                   }
 
-                  function surface_minus(){
+                  function floursurface_minus(){
                     Parse.$ = jQuery;
                     Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
                     var Slot =  Parse.Object.extend("flour");
@@ -312,7 +312,7 @@
                     })
                   }
 
-                  function surface_plus() {
+                  function floursurface_plus() {
                     Parse.$ = jQuery;
                     Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
                     var Slot =  Parse.Object.extend("flour");
