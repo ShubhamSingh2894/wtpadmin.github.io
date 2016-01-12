@@ -37,7 +37,7 @@
         					}
         					}
         			});
-        		}
+
             var Slot1 =  Parse.Object.extend("flour");
             var query = new Parse.Query(Slot1);
             query.equalTo("objectId","lSIWpoJ8la");
@@ -58,9 +58,28 @@
                 }
             });
 
+            var Slot2 =  Parse.Object.extend("baxter");
+            var query = new Parse.Query(Slot2);
+            query.equalTo("objectId","qXPOxmdynY");
+            query.first({
+                success: function(slot2) {
+                  document.getElementById("baxter_slot_base").value = slot2.get("parking_counter");
+                  if(slot1.get("parking_counter")<21){
+                                                          document.getElementById("baxter_status_base").innerHTML = "Current Slot: "+slot2.get("parking_counter");
+                                                          document.getElementById("baxter_base_min").disabled= "";
+                                                          document.getElementById("baxter_slot_base").disabled= "";
+                                                          document.getElementById("baxter_base_add").disabled= "";
+                                                          document.getElementById("baxter_base_less").disabled= "disabled";
+                                                          document.getElementById("baxter_base_enter").disabled="";
+                }
+                else {
+                  document.getElementById("baxter_status_base").innerHTML = "Available";
+                }
+                }
+            });
+          }
 
-
-        		window.onload = function(){refresh();};
+            window.onload = function(){refresh();};
       </script>
 
   </head>
@@ -70,6 +89,9 @@
     <div class="container">
       <div class="header clearfix">
         <nav>
+          <ul class ="nav nav-pills pull-left">
+			         <li role="presentation" class="active"><a href="../index.html">Coming</a></li>
+		      </ul>
           <ul class ="nav nav-pills pull-right">
 			         <li role="presentation" class="active"><a href="../index.html">Logout</a></li>
 		      </ul>
@@ -207,6 +229,10 @@
             		}
 </script>
 
+
+
+
+
       <div class="jumbotron">
         <h2 style="color:#984807"><strong>Flour base Parking</strong></h2>
         <hr>
@@ -337,6 +363,138 @@
                     }
 
       </script>
+
+
+            <div class="jumbotron">
+              <h2 style="color:#984807"><strong>Baxter base Parking</strong></h2>
+              <hr>
+              <button type="button"  id= "baxter_base_less" onclick="baxter_update_base()" class="btn-md btn-warning" >20 Slots Left</button>
+              <button type="button"  id= "baxter_base_avail" onclick="baxter_base_available()" class="btn-md btn-success" >Available</button>
+              <hr>
+              <button type="button"  id="baxter_base_min" onclick="baxter_base_minus()" class="btn-sm btn-danger" disabled>-</button>
+              <input id ="baxter_slot_base" value="" type="number" disabled ></input>
+              <button type="button"  id="baxter_base_add" onclick="baxter_base_plus()" class="btn-sm btn-success" disabled>+</button>
+              <br>
+              <button type="button"  id="baxter_base_enter" onclick="baxter_base_enter()" class="btn-sm btn-primary" disabled>Enter</button>
+              <hr>
+              <h2 id ="baxter_status_base" style="color:#984807"><strong></strong></h2>
+              <hr>
+            </div>
+
+
+            <script>
+                          function baxter_base_available() {
+                                  Parse.$ = jQuery;
+                                  Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
+                                  var Slot =  Parse.Object.extend("baxter");
+                                  var query = new Parse.Query(Slot);
+                                  query.equalTo("objectId","qXPOxmdynY");
+                                  query.first({
+                                        success: function(slot) {
+                                               slot.set("parking_counter",21);
+                                               slot.save();
+                                              document.getElementById("baxter_status_base").innerHTML ="Available";
+                                              document.getElementById("baxter_base_min").disabled= "disabled";
+                                              document.getElementById("baxter_base_add").disabled= "disabled";
+                                              document.getElementById("baxter_base_less").disabled= "";
+                                              document.getElementById("baxter_base_enter").disabled="disabled";
+                                              document.getElementById("baxter_slot_base").disabled="disabled";
+                                              slot.save();
+                                            }
+                                  })
+                          }
+
+
+                            function baxter_base_enter() {
+                                  Parse.$ = jQuery;
+                                  Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
+                                  var Slot =  Parse.Object.extend("baxter");
+                                  var query = new Parse.Query(Slot);
+                                  query.equalTo("objectId","qXPOxmdynY");
+                                  query.first({
+                                    success: function(slot) {
+                                    if(document.getElementById("baxter_slot_base").value < 21 && document.getElementById("baxter_slot_base").value >=0)
+                                                                {
+                                      slot.set("parking_counter",parseInt(document.getElementById("baxter_slot_base").value));
+                                      slot.save();
+                                      document.getElementById("baxter_slot_base").value=slot.get("parking_counter");
+                                      document.getElementById("baxter_status_base").innerHTML = slot.get("parking_counter");
+                                    }
+                                    }
+                                  })
+                            }
+
+                          function baxter_update_base() {
+                            Parse.$ = jQuery;
+                            Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
+                            var Slot =  Parse.Object.extend("baxter");
+                            var query = new Parse.Query(Slot);
+                            query.equalTo("objectId","qXPOxmdynY");
+                            query.first({
+                              success: function(slot) {
+                                slot.set("parking_counter",20);
+                                document.getElementById("baxter_slot_base").value=slot.get("parking_counter");
+                                document.getElementById("baxter_status_base").innerHTML ="Current status" + ": " + slot.get("parking_counter");
+                                document.getElementById("baxter_base_min").disabled= "";
+                                document.getElementById("baxter_slot_base").disabled= "";
+                                document.getElementById("baxter_base_add").disabled= "";
+                                document.getElementById("baxter_base_less").disabled= "disabled";
+                                document.getElementById("baxter_base_enter").disabled="";
+                                slot.save();
+                              }
+                            })
+                          }
+
+                          function baxter_base_minus(){
+                            Parse.$ = jQuery;
+                            Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
+                            var Slot =  Parse.Object.extend("baxter");
+                            var query = new Parse.Query(Slot);
+                            query.equalTo("objectId","qXPOxmdynY");
+                            query.first({
+                              success: function(slot) {
+                                if(slot.get("parking_counter") > 0)
+                              {
+                                slot.increment("parking_counter", -1);
+                                slot.save();
+                                document.getElementById("baxter_slot_base").value = slot.get("parking_counter");
+                                document.getElementById("baxter_status_base").innerHTML = "Current Slot: "+slot.get("parking_counter");
+                                }
+                              }
+                            })
+                          }
+
+                          function baxter_base_plus() {
+                            Parse.$ = jQuery;
+                            Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
+                            var Slot =  Parse.Object.extend("baxter");
+                            var query = new Parse.Query(Slot);
+                            query.equalTo("objectId","qXPOxmdynY");
+                            query.first({
+                              success: function(slot) {
+                                if(slot.get("parking_counter") <  20)
+                                    {
+                                slot.increment("parking_counter", 1);
+                                slot.save();
+                                document.getElementById("baxter_slot_base").value = slot.get("parking_counter");
+                                document.getElementById("baxter_status_base").innerHTML = "Current Slot: "+ slot.get("parking_counter");
+                                }
+
+                              else {
+                                slot.set("parking_counter",21);
+                                document.getElementById("baxter_base_min").disabled= "disabled";
+                                document.getElementById("baxter_base_add").disabled= "disabled";
+                                document.getElementById("baxter_base_less").disabled= "";
+                                document.getElementById("baxter_base_enter").disabled="disabled";
+                                document.getElementById("baxter_slot_base").disabled="disabled";
+                                document.getElementById("baxter_status_base").innerHTML ="Available";
+                                slot.save();
+                                }
+                              }
+                            })
+                          }
+
+            </script>
 
 
       </div>
