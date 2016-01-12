@@ -64,7 +64,7 @@
             query.first({
                 success: function(slot2) {
                   document.getElementById("baxter_slot_base").value = slot2.get("parking_counter");
-                  if(slot1.get("parking_counter")<21){
+                  if(slot2.get("parking_counter")<21){
                                                           document.getElementById("baxter_status_base").innerHTML = "Current Slot: "+slot2.get("parking_counter");
                                                           document.getElementById("baxter_base_min").disabled= "";
                                                           document.getElementById("baxter_slot_base").disabled= "";
