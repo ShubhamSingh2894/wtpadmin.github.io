@@ -11,8 +11,8 @@
     <title>WhereToPark Admin</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/signin.css" rel="stylesheet">
-	<script src="js/jquery-2.1.4.min.js"></script>
-	<script src="//www.parsecdn.com/js/parse-1.6.7.min.js"></script>
+	  <script src="js/jquery-2.1.4.min.js"></script>
+	  <script src="//www.parsecdn.com/js/parse-1.6.7.min.js"></script>
   </head>
 
   <body>
@@ -30,10 +30,25 @@
 	<script>
 	function authen() {
 			Parse.$ = jQuery;
-			Parse.initialize("ORdRb6ZtoTRSIUBeDKCcpigKQR9Pr6YJjeguuN9t", "ec8NHsZDP17pTdRjBKQFAPxB8ihduGt6e8NAGdaH");
+			Parse.initialize("nVul6sjXS7F5FfVLOX0o0a1GIkDuCYS1yBzQpVgn", "GLTokJkjL6kK54qBNQE5C5zMYXqPcyFLM1zyoQNY");
 			var User = Parse.Object.extend("User");
 			var query = new Parse.Query(User);
-			query.get("wIde8ZPvWa",{
+
+      query.get("twVNHheonc",{
+      success: function(user) {
+      console.log(user.get("username"));
+
+        if(document.getElementById("uname").value == user.get("username"))
+          {
+            console.log("entered");
+            window.location.href = "dlf/infinity.html";
+            }
+          },
+      error: function(object, error) {
+        }
+      });
+
+			query.get("Vf8GB2JxiG",{
 			success: function(user) {
 			console.log(user.get("username"));
 
@@ -47,7 +62,7 @@
 				}
 			});
 
-			query.get("87eai4RQYk",{
+			query.get("b0EQy1GjKY",{
 			success: function(user) {
 			console.log(user.get("username"));
 
@@ -61,7 +76,7 @@
 				}
 			});
 
-			query.get("Z40uwotciO",{
+			query.get("rcCxNExNlU",{
 			success: function(user) {
 			console.log(user.get("username"));
 
@@ -75,7 +90,7 @@
 				}
 			});
 
-      query.get("5DZkBK58cc",{
+      query.get("bCmgZPi5bY",{
 			success: function(user) {
 			console.log(user.get("username"));
 
