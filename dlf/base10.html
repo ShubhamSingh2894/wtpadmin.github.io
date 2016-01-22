@@ -113,6 +113,76 @@
                   }
         			});
 
+
+
+              query.equalTo("objectId","");
+        			query.first({
+        					success: function(slot) {
+                    count=slot.get("parking_count");
+                    if(count[1] == 21) {
+                      document.getElementById("bcg_status").innerHTML ="Available";
+                      document.getElementById("bcg_min").disabled= "disabled";
+                      document.getElementById("bcg_add").disabled= "disabled";
+                      document.getElementById("bcg_less").disabled= "";
+                      document.getElementById("bcg_enter").disabled="disabled";
+                      document.getElementById("bcg_slot").disabled="disabled";
+                    }
+                    else if(count[1] < 21 && count[1]> 0) {
+                      document.getElementById("bcg_status").innerHTML = count[1];
+                      document.getElementById("bcg_min").disabled= "";
+                      document.getElementById("bcg_add").disabled= "";
+                      document.getElementById("bcg_less").disabled= "disabled";
+                      document.getElementById("bcg_enter").disabled="";
+                      document.getElementById("bcg_slot").disabled="";
+                    }
+                    else if (count[1]==0){
+                      document.getElementById("bcg_status").innerHTML = "Full";
+                      document.getElementById("bcg_min").disabled= "";
+                      document.getElementById("bcg_add").disabled= "";
+                      document.getElementById("bcg_less").disabled= "disabled";
+                      document.getElementById("bcg_enter").disabled="";
+                      document.getElementById("bcg_slot").disabled="";
+                    }
+                  }
+        			});
+
+
+
+              query.equalTo("objectId","");
+        			query.first({
+        					success: function(slot) {
+                    count=slot.get("parking_count");
+                    if(count[1] == 21) {
+                      document.getElementById("aircel_status").innerHTML ="Available";
+                      document.getElementById("aircel_min").disabled= "disabled";
+                      document.getElementById("aircel_add").disabled= "disabled";
+                      document.getElementById("aircel_less").disabled= "";
+                      document.getElementById("aircel_enter").disabled="disabled";
+                      document.getElementById("aircel_slot").disabled="disabled";
+                    }
+                    else if(count[1] < 21 && count[1]> 0) {
+                      document.getElementById("aircel_status").innerHTML = count[1];
+                      document.getElementById("aircel_min").disabled= "";
+                      document.getElementById("aircel_add").disabled= "";
+                      document.getElementById("aircel_less").disabled= "disabled";
+                      document.getElementById("aircel_enter").disabled="";
+                      document.getElementById("aircel_slot").disabled="";
+                    }
+                    else if (count[1]==0){
+                      document.getElementById("aircel_status").innerHTML = "Full";
+                      document.getElementById("aircel_min").disabled= "";
+                      document.getElementById("aircel_add").disabled= "";
+                      document.getElementById("aircel_less").disabled= "disabled";
+                      document.getElementById("aircel_enter").disabled="";
+                      document.getElementById("aircel_slot").disabled="";
+                    }
+                  }
+        			});
+
+
+
+
+
 }
 
             window.onload = function(){refresh();};
@@ -692,6 +762,387 @@
                     }
               </script>
             </div>
-      </div>
+
+    
+
+          <div class="jumbotron">
+                <h2 style="color:#984807"><strong>Aircel Basement Parking (Building 10)</strong></h2>
+                <hr>
+                <button type="button"  id= "aircel_less" onclick="aircel_update()" class="btn-md btn-warning" >20 Slots Left</button>
+                <button type="button"  id= "aircel_avail" onclick="aircel_avail()" class="btn-md btn-success" >Available</button>
+                <hr>
+                <button type="button"  id="aircel_min" onclick="aircel_minus()" class="btn-sm btn-danger" disabled>-</button>
+                <input id ="aircel_slot" value="" type="number" disabled ></input>
+                <button type="button"  id="aircel_add" onclick="aircel_plus()" class="btn-sm btn-success" disabled>+</button>
+                <br>
+                <button type="button"  id="aircel_enter" onclick="aircel_enter()" class="btn-sm btn-primary" disabled>Enter</button>
+                <hr>
+                <h2 id ="aircel_status" style="color:#984807"><strong></strong></h2>
+                <hr>
+
+
+          <script>
+                    function aircel_avail() {
+                      var status = [];
+                      var count = [];
+                      Parse.$ = jQuery;
+                      Parse.initialize("nVul6sjXS7F5FfVLOX0o0a1GIkDuCYS1yBzQpVgn", "GLTokJkjL6kK54qBNQE5C5zMYXqPcyFLM1zyoQNY");
+                        var Slot =  Parse.Object.extend("Corporate");
+                        var query = new Parse.Query(Slot);
+                        query.equalTo("objectId","");
+                            query.first({
+                                  success: function(slot) {
+                                        count=slot.get("parking_count");
+                                        count[0]=21;
+                                        slot.set("parking_count",count);
+                                        status=slot.get("park_show_status");
+                                        status[0]="Current Status: Available";
+                                        slot.set("park_show_status",status);
+                                        document.getElementById("aircel_status").innerHTML ="Available";
+                                        document.getElementById("aircel_min").disabled= "disabled";
+                                        document.getElementById("aircel_add").disabled= "disabled";
+                                        document.getElementById("aircel_less").disabled= "";
+                                        document.getElementById("aircel_enter").disabled="disabled";
+                                        document.getElementById("aircel_slot").disabled="disabled";
+                                        slot.save();
+                                      }
+                            })
+                    }
+
+                      function aircel_enter() {
+                        var status=[];
+                        var count = [];
+                        Parse.$ = jQuery;
+                        Parse.initialize("nVul6sjXS7F5FfVLOX0o0a1GIkDuCYS1yBzQpVgn", "GLTokJkjL6kK54qBNQE5C5zMYXqPcyFLM1zyoQNY");
+                          var Slot =  Parse.Object.extend("Corporate");
+                          var query = new Parse.Query(Slot);
+                          query.equalTo("objectId","");
+                            query.first({
+                              success: function(slot) {
+                              if(document.getElementById("aircel_slot").value < 21 && document.getElementById("aircel_slot").value >=0)
+                                                          {
+                                count=slot.get("parking_count");
+                                count[0]=parseInt(document.getElementById("aircel_slot").value);
+                                slot.set("parking_count",count);
+                                status=slot.get("park_show_status");
+                                status[0]="Current Status: "+count[0].toString()+" Slots Available";
+                                slot.set("park_show_status",status);
+                                slot.save();
+                                document.getElementById("aircel_slot").value=count[0];
+                                document.getElementById("aircel_status").innerHTML = count[0];
+                              }
+                              if(document.getElementById("aircel_slot").value  == 0)
+                            {
+                              count[0]=0;
+                              slot.set("parking_count",count);
+                              status=slot.get("park_show_status");
+                              status[0]="Current Status: Full";
+                              slot.set("park_show_status",status);
+                              slot.save();
+                              document.getElementById("aircel_slot").value = count[0];
+                              document.getElementById("aircel_status").innerHTML = "Current Slot: "+count[0];
+                              }
+                              }
+                            })
+                      }
+                    function aircel_update() {
+                      var status = [];
+                      var count = [];
+                      Parse.$ = jQuery;
+                      Parse.initialize("nVul6sjXS7F5FfVLOX0o0a1GIkDuCYS1yBzQpVgn", "GLTokJkjL6kK54qBNQE5C5zMYXqPcyFLM1zyoQNY");
+                        var Slot =  Parse.Object.extend("Corporate");
+                        var query = new Parse.Query(Slot);
+                        query.equalTo("objectId","");
+                      query.first({
+                        success: function(slot) {
+                          count=slot.get("parking_count");
+                          count[0]=20;
+                          slot.set("parking_count",count);
+                          status=slot.get("park_show_status");
+                          status[0]="Current Status: "+count[0].toString()+" Slots Available";
+                          slot.set("park_show_status",status);
+                          slot.save();
+                          document.getElementById("aircel_slot").value=count[0];
+                          document.getElementById("aircel_status").innerHTML ="Current status" + ": " + count[0];
+                          document.getElementById("aircel_min").disabled= "";
+                          document.getElementById("aircel_slot").disabled= "";
+                          document.getElementById("aircel_add").disabled= "";
+                          document.getElementById("aircel_less").disabled= "disabled";
+                          document.getElementById("aircel_enter").disabled="";
+                        }
+                      })
+                    }
+
+                    function aircel_minus(){
+                      var status = [];
+                      var count = [];
+                      Parse.$ = jQuery;
+                      Parse.initialize("nVul6sjXS7F5FfVLOX0o0a1GIkDuCYS1yBzQpVgn", "GLTokJkjL6kK54qBNQE5C5zMYXqPcyFLM1zyoQNY");
+                        var Slot =  Parse.Object.extend("Corporate");
+                        var query = new Parse.Query(Slot);
+                        query.equalTo("objectId","");
+                      query.first({
+                        success: function(slot) {
+                          count=slot.get("parking_count");
+                          if(count[0] > 0)
+                        {
+                          count[0]=count[0]-1;
+                          slot.set("parking_count",count);
+                          status=slot.get("park_show_status");
+                          status[0]="Current Status: "+count[0].toString()+" Slots Available";
+                          slot.set("park_show_status",status);
+                          slot.save();
+                          document.getElementById("aircel_slot").value = count[0];
+                          document.getElementById("aircel_status").innerHTML = "Current Slot: "+count[0];
+                          }
+                          if(count[0] == 0)
+                        {
+                          count[0]=0;
+                          slot.set("parking_count",count);
+                          status=slot.get("park_show_status");
+                          status[0]="Current Status: Full";
+                          slot.set("park_show_status",status);
+                          slot.save();
+                          document.getElementById("aircel_slot").value = count[0];
+                          document.getElementById("aircel_status").innerHTML = "Current Slot: "+count[0];
+                          }
+                        }
+                      })
+                    }
+
+                    function aircel_plus() {
+                      var status = [];
+                      var count = [];
+                      Parse.$ = jQuery;
+                      Parse.initialize("nVul6sjXS7F5FfVLOX0o0a1GIkDuCYS1yBzQpVgn", "GLTokJkjL6kK54qBNQE5C5zMYXqPcyFLM1zyoQNY");
+                        var Slot =  Parse.Object.extend("Corporate");
+                        var query = new Parse.Query(Slot);
+                        query.equalTo("objectId","");
+                      query.first({
+                        success: function(slot) {
+                          count=slot.get("parking_count");
+                          if(count[0] <  20)
+                              {
+                                count[0]=count[0]+1;
+                                slot.set("parking_count",count);
+                                status=slot.get("park_show_status");
+                                status[0]="Current Status: "+count[0].toString()+" Slots Available";
+                                slot.set("park_show_status",status);
+                                slot.save();
+                                document.getElementById("aircel_slot").value = count[0];
+                                document.getElementById("aircel_status").innerHTML = "Current Slot: "+count[0];
+                          }
+                        else {
+                          count[0]=21;
+                          status=slot.get("park_show_status");
+                          status[0]="Current Status: Available";
+                          slot.set("park_show_status",status);
+                          slot.set("parking_count",count);
+                          document.getElementById("aircel_min").disabled= "disabled";
+                          document.getElementById("aircel_add").disabled= "disabled";
+                          document.getElementById("aircel_less").disabled= "";
+                          document.getElementById("aircel_enter").disabled="disabled";
+                          document.getElementById("aircel_slot").disabled="disabled";
+                          document.getElementById("aircel_status").innerHTML ="Available";
+                          slot.save();
+                          }
+                        }
+                      })
+                    }
+              </script>
+            </div>
+    
+    
+
+          <div class="jumbotron">
+                <h2 style="color:#984807"><strong>BCG Basement Parking (Building 10)</strong></h2>
+                <hr>
+                <button type="button"  id= "bcg_less" onclick="bcg_update()" class="btn-md btn-warning" >20 Slots Left</button>
+                <button type="button"  id= "bcg_avail" onclick="bcg_avail()" class="btn-md btn-success" >Available</button>
+                <hr>
+                <button type="button"  id="bcg_min" onclick="bcg_minus()" class="btn-sm btn-danger" disabled>-</button>
+                <input id ="bcg_slot" value="" type="number" disabled ></input>
+                <button type="button"  id="bcg_add" onclick="bcg_plus()" class="btn-sm btn-success" disabled>+</button>
+                <br>
+                <button type="button"  id="bcg_enter" onclick="bcg_enter()" class="btn-sm btn-primary" disabled>Enter</button>
+                <hr>
+                <h2 id ="bcg_status" style="color:#984807"><strong></strong></h2>
+                <hr>
+
+
+          <script>
+                    function bcg_avail() {
+                      var status = [];
+                      var count = [];
+                      Parse.$ = jQuery;
+                      Parse.initialize("nVul6sjXS7F5FfVLOX0o0a1GIkDuCYS1yBzQpVgn", "GLTokJkjL6kK54qBNQE5C5zMYXqPcyFLM1zyoQNY");
+                        var Slot =  Parse.Object.extend("Corporate");
+                        var query = new Parse.Query(Slot);
+                        query.equalTo("objectId","");
+                            query.first({
+                                  success: function(slot) {
+                                        count=slot.get("parking_count");
+                                        count[0]=21;
+                                        slot.set("parking_count",count);
+                                        status=slot.get("park_show_status");
+                                        status[0]="Current Status: Available";
+                                        slot.set("park_show_status",status);
+                                        document.getElementById("bcg_status").innerHTML ="Available";
+                                        document.getElementById("bcg_min").disabled= "disabled";
+                                        document.getElementById("bcg_add").disabled= "disabled";
+                                        document.getElementById("bcg_less").disabled= "";
+                                        document.getElementById("bcg_enter").disabled="disabled";
+                                        document.getElementById("bcg_slot").disabled="disabled";
+                                        slot.save();
+                                      }
+                            })
+                    }
+
+                      function bcg_enter() {
+                        var status=[];
+                        var count = [];
+                        Parse.$ = jQuery;
+                        Parse.initialize("nVul6sjXS7F5FfVLOX0o0a1GIkDuCYS1yBzQpVgn", "GLTokJkjL6kK54qBNQE5C5zMYXqPcyFLM1zyoQNY");
+                          var Slot =  Parse.Object.extend("Corporate");
+                          var query = new Parse.Query(Slot);
+                          query.equalTo("objectId","");
+                            query.first({
+                              success: function(slot) {
+                              if(document.getElementById("bcg_slot").value < 21 && document.getElementById("bcg_slot").value >=0)
+                                                          {
+                                count=slot.get("parking_count");
+                                count[0]=parseInt(document.getElementById("bcg_slot").value);
+                                slot.set("parking_count",count);
+                                status=slot.get("park_show_status");
+                                status[0]="Current Status: "+count[0].toString()+" Slots Available";
+                                slot.set("park_show_status",status);
+                                slot.save();
+                                document.getElementById("bcg_slot").value=count[0];
+                                document.getElementById("bcg_status").innerHTML = count[0];
+                              }
+                              if(document.getElementById("bcg_slot").value  == 0)
+                            {
+                              count[0]=0;
+                              slot.set("parking_count",count);
+                              status=slot.get("park_show_status");
+                              status[0]="Current Status: Full";
+                              slot.set("park_show_status",status);
+                              slot.save();
+                              document.getElementById("bcg_slot").value = count[0];
+                              document.getElementById("bcg_status").innerHTML = "Current Slot: "+count[0];
+                              }
+                              }
+                            })
+                      }
+                    function bcg_update() {
+                      var status = [];
+                      var count = [];
+                      Parse.$ = jQuery;
+                      Parse.initialize("nVul6sjXS7F5FfVLOX0o0a1GIkDuCYS1yBzQpVgn", "GLTokJkjL6kK54qBNQE5C5zMYXqPcyFLM1zyoQNY");
+                        var Slot =  Parse.Object.extend("Corporate");
+                        var query = new Parse.Query(Slot);
+                        query.equalTo("objectId","");
+                      query.first({
+                        success: function(slot) {
+                          count=slot.get("parking_count");
+                          count[0]=20;
+                          slot.set("parking_count",count);
+                          status=slot.get("park_show_status");
+                          status[0]="Current Status: "+count[0].toString()+" Slots Available";
+                          slot.set("park_show_status",status);
+                          slot.save();
+                          document.getElementById("bcg_slot").value=count[0];
+                          document.getElementById("bcg_status").innerHTML ="Current status" + ": " + count[0];
+                          document.getElementById("bcg_min").disabled= "";
+                          document.getElementById("bcg_slot").disabled= "";
+                          document.getElementById("bcg_add").disabled= "";
+                          document.getElementById("bcg_less").disabled= "disabled";
+                          document.getElementById("bcg_enter").disabled="";
+                        }
+                      })
+                    }
+
+                    function bcg_minus(){
+                      var status = [];
+                      var count = [];
+                      Parse.$ = jQuery;
+                      Parse.initialize("nVul6sjXS7F5FfVLOX0o0a1GIkDuCYS1yBzQpVgn", "GLTokJkjL6kK54qBNQE5C5zMYXqPcyFLM1zyoQNY");
+                        var Slot =  Parse.Object.extend("Corporate");
+                        var query = new Parse.Query(Slot);
+                        query.equalTo("objectId","");
+                      query.first({
+                        success: function(slot) {
+                          count=slot.get("parking_count");
+                          if(count[0] > 0)
+                        {
+                          count[0]=count[0]-1;
+                          slot.set("parking_count",count);
+                          status=slot.get("park_show_status");
+                          status[0]="Current Status: "+count[0].toString()+" Slots Available";
+                          slot.set("park_show_status",status);
+                          slot.save();
+                          document.getElementById("bcg_slot").value = count[0];
+                          document.getElementById("bcg_status").innerHTML = "Current Slot: "+count[0];
+                          }
+                          if(count[0] == 0)
+                        {
+                          count[0]=0;
+                          slot.set("parking_count",count);
+                          status=slot.get("park_show_status");
+                          status[0]="Current Status: Full";
+                          slot.set("park_show_status",status);
+                          slot.save();
+                          document.getElementById("bcg_slot").value = count[0];
+                          document.getElementById("bcg_status").innerHTML = "Current Slot: "+count[0];
+                          }
+                        }
+                      })
+                    }
+
+                    function bcg_plus() {
+                      var status = [];
+                      var count = [];
+                      Parse.$ = jQuery;
+                      Parse.initialize("nVul6sjXS7F5FfVLOX0o0a1GIkDuCYS1yBzQpVgn", "GLTokJkjL6kK54qBNQE5C5zMYXqPcyFLM1zyoQNY");
+                        var Slot =  Parse.Object.extend("Corporate");
+                        var query = new Parse.Query(Slot);
+                        query.equalTo("objectId","");
+                      query.first({
+                        success: function(slot) {
+                          count=slot.get("parking_count");
+                          if(count[0] <  20)
+                              {
+                                count[0]=count[0]+1;
+                                slot.set("parking_count",count);
+                                status=slot.get("park_show_status");
+                                status[0]="Current Status: "+count[0].toString()+" Slots Available";
+                                slot.set("park_show_status",status);
+                                slot.save();
+                                document.getElementById("bcg_slot").value = count[0];
+                                document.getElementById("bcg_status").innerHTML = "Current Slot: "+count[0];
+                          }
+                        else {
+                          count[0]=21;
+                          status=slot.get("park_show_status");
+                          status[0]="Current Status: Available";
+                          slot.set("park_show_status",status);
+                          slot.set("parking_count",count);
+                          document.getElementById("bcg_min").disabled= "disabled";
+                          document.getElementById("bcg_add").disabled= "disabled";
+                          document.getElementById("bcg_less").disabled= "";
+                          document.getElementById("bcg_enter").disabled="disabled";
+                          document.getElementById("bcg_slot").disabled="disabled";
+                          document.getElementById("bcg_status").innerHTML ="Available";
+                          slot.save();
+                          }
+                        }
+                      })
+                    }
+              </script>
+            </div>
+        
+        
+    
+    </div>
   </body>
 </html>
