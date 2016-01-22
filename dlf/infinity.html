@@ -112,6 +112,105 @@
                   }
         			});
 
+
+              query.equalTo("objectId","");
+        			query.first({
+        					success: function(slot) {
+                    count=slot.get("parking_count");
+                    if(count[0] == 21) {
+                      document.getElementById("ibmin_status").innerHTML ="Available";
+                      document.getElementById("ibmin_min").disabled= "disabled";
+                      document.getElementById("ibmin_add").disabled= "disabled";
+                      document.getElementById("ibmin_less").disabled= "";
+                      document.getElementById("ibmin_enter").disabled="disabled";
+                      document.getElementById("ibmin_slot").disabled="disabled";
+                    }
+                    else if(count[0] < 21 && count[0]> 0) {
+                      document.getElementById("ibmin_status").innerHTML = count[0];
+                      document.getElementById("ibmin_min").disabled= "";
+                      document.getElementById("ibmin_add").disabled= "";
+                      document.getElementById("ibmin_less").disabled= "disabled";
+                      document.getElementById("ibmin_enter").disabled="";
+                      document.getElementById("ibmin_slot").disabled="";
+                    }
+                    else if (count[0]==0){
+                      document.getElementById("ibmin_status").innerHTML = "Full";
+                      document.getElementById("ibmin_min").disabled= "";
+                      document.getElementById("ibmin_add").disabled= "";
+                      document.getElementById("ibmin_less").disabled= "disabled";
+                      document.getElementById("ibmin_enter").disabled="";
+                      document.getElementById("ibmin_slot").disabled="";
+                    }
+                  }
+        			});
+
+
+
+              query.equalTo("objectId","");
+        			query.first({
+        					success: function(slot) {
+                    count=slot.get("parking_count");
+                    if(count[0] == 21) {
+                      document.getElementById("hp_status").innerHTML ="Available";
+                      document.getElementById("hp_min").disabled= "disabled";
+                      document.getElementById("hp_add").disabled= "disabled";
+                      document.getElementById("hp_less").disabled= "";
+                      document.getElementById("hp_enter").disabled="disabled";
+                      document.getElementById("hp_slot").disabled="disabled";
+                    }
+                    else if(count[0] < 21 && count[0]> 0) {
+                      document.getElementById("hp_status").innerHTML = count[0];
+                      document.getElementById("hp_min").disabled= "";
+                      document.getElementById("hp_add").disabled= "";
+                      document.getElementById("hp_less").disabled= "disabled";
+                      document.getElementById("hp_enter").disabled="";
+                      document.getElementById("hp_slot").disabled="";
+                    }
+                    else if (count[0]==0){
+                      document.getElementById("hp_status").innerHTML = "Full";
+                      document.getElementById("hp_min").disabled= "";
+                      document.getElementById("hp_add").disabled= "";
+                      document.getElementById("hp_less").disabled= "disabled";
+                      document.getElementById("hp_enter").disabled="";
+                      document.getElementById("hp_slot").disabled="";
+                    }
+                  }
+        			});
+
+
+              query.equalTo("objectId","");
+        			query.first({
+        					success: function(slot) {
+                    count=slot.get("parking_count");
+                    if(count[0] == 21) {
+                      document.getElementById("nokia_status").innerHTML ="Available";
+                      document.getElementById("nokia_min").disabled= "disabled";
+                      document.getElementById("nokia_add").disabled= "disabled";
+                      document.getElementById("nokia_less").disabled= "";
+                      document.getElementById("nokia_enter").disabled="disabled";
+                      document.getElementById("nokia_slot").disabled="disabled";
+                    }
+                    else if(count[0] < 21 && count[0]> 0) {
+                      document.getElementById("nokia_status").innerHTML = count[0];
+                      document.getElementById("nokia_min").disabled= "";
+                      document.getElementById("nokia_add").disabled= "";
+                      document.getElementById("nokia_less").disabled= "disabled";
+                      document.getElementById("nokia_enter").disabled="";
+                      document.getElementById("nokia_slot").disabled="";
+                    }
+                    else if (count[0]==0){
+                      document.getElementById("nokia_status").innerHTML = "Full";
+                      document.getElementById("nokia_min").disabled= "";
+                      document.getElementById("nokia_add").disabled= "";
+                      document.getElementById("nokia_less").disabled= "disabled";
+                      document.getElementById("nokia_enter").disabled="";
+                      document.getElementById("nokia_slot").disabled="";
+                    }
+                  }
+        			});
+
+
+
 }
 
             window.onload = function(){refresh();};
@@ -320,7 +419,7 @@
 
 
           <div class="jumbotron">
-                <h2 style="color:#984807"><strong>IBM Infinity Parking</strong></h2>
+                <h2 style="color:#984807"><strong>IBM I Infinity Parking</strong></h2>
                 <hr>
                 <button type="button"  id= "ibm_less" onclick="ibm_update()" class="btn-md btn-warning" >20 Slots Left</button>
                 <button type="button"  id= "ibm_avail" onclick="ibm_avail()" class="btn-md btn-success" >Available</button>
@@ -686,6 +785,574 @@
                             document.getElementById("ikea_enter").disabled="disabled";
                             document.getElementById("ikea_slot").disabled="disabled";
                             document.getElementById("ikea_status").innerHTML ="Available";
+                            slot.save();
+                            }
+                          }
+                        })
+                      }
+                </script>
+              </div>
+        
+        
+        
+        
+            <div class="jumbotron">
+                  <h2 style="color:#984807"><strong>IBM India Infinity Parking </strong></h2>
+                  <hr>
+                  <button type="button"  id= "ibmin_less" onclick="ibmin_update()" class="btn-md btn-warning" >20 Slots Left</button>
+                  <button type="button"  id= "ibmin_avail" onclick="ibmin_avail()" class="btn-md btn-success" >Available</button>
+                  <hr>
+                  <button type="button"  id="ibmin_min" onclick="ibmin_minus()" class="btn-sm btn-danger" disabled>-</button>
+                  <input id ="ibmin_slot" value="" type="number" disabled ></input>
+                  <button type="button"  id="ibmin_add" onclick="ibmin_plus()" class="btn-sm btn-success" disabled>+</button>
+                  <br>
+                  <button type="button"  id="ibmin_enter" onclick="ibmin_enter()" class="btn-sm btn-primary" disabled>Enter</button>
+                  <hr>
+                  <h2 id ="ibmin_status" style="color:#984807"><strong></strong></h2>
+                  <hr>
+
+
+            <script>
+                      function ibmin_avail() {
+                        var status = [];
+                        var count = [];
+                        Parse.$ = jQuery;
+                        Parse.initialize("nVul6sjXS7F5FfVLOX0o0a1GIkDuCYS1yBzQpVgn", "GLTokJkjL6kK54qBNQE5C5zMYXqPcyFLM1zyoQNY");
+                          var Slot =  Parse.Object.extend("Corporate");
+                          var query = new Parse.Query(Slot);
+                          query.equalTo("objectId","");
+                              query.first({
+                                    success: function(slot) {
+                                          count=slot.get("parking_count");
+                                          count[0]=21;
+                                          slot.set("parking_count",count);
+                                          status=slot.get("park_show_status");
+                                          status[0]="Current Status: Available";
+                                          slot.set("park_show_status",status);
+                                          document.getElementById("ibmin_status").innerHTML ="Available";
+                                          document.getElementById("ibmin_min").disabled= "disabled";
+                                          document.getElementById("ibmin_add").disabled= "disabled";
+                                          document.getElementById("ibmin_less").disabled= "";
+                                          document.getElementById("ibmin_enter").disabled="disabled";
+                                          document.getElementById("ibmin_slot").disabled="disabled";
+                                          slot.save();
+                                        }
+                              })
+                      }
+
+                        function ibmin_enter() {
+                          var status=[];
+                          var count = [];
+                          Parse.$ = jQuery;
+                          Parse.initialize("nVul6sjXS7F5FfVLOX0o0a1GIkDuCYS1yBzQpVgn", "GLTokJkjL6kK54qBNQE5C5zMYXqPcyFLM1zyoQNY");
+                            var Slot =  Parse.Object.extend("Corporate");
+                            var query = new Parse.Query(Slot);
+                            query.equalTo("objectId","");
+                              query.first({
+                                success: function(slot) {
+                                if(document.getElementById("ibmin_slot").value < 21 && document.getElementById("ibmin_slot").value >=0)
+                                                            {
+                                  count=slot.get("parking_count");
+                                  count[0]=parseInt(document.getElementById("ibmin_slot").value);
+                                  slot.set("parking_count",count);
+                                  status=slot.get("park_show_status");
+                                  status[0]="Current Status: "+count[0].toString()+" Slots Available";
+                                  slot.set("park_show_status",status);
+                                  slot.save();
+                                  document.getElementById("ibmin_slot").value=count[0];
+                                  document.getElementById("ibmin_status").innerHTML = count[0];
+                                }
+                                if(document.getElementById("ibmin_slot").value  == 0)
+                              {
+                                count[0]=0;
+                                slot.set("parking_count",count);
+                                status=slot.get("park_show_status");
+                                status[0]="Current Status: Full";
+                                slot.set("park_show_status",status);
+                                slot.save();
+                                document.getElementById("ibmin_slot").value = count[0];
+                                document.getElementById("ibmin_status").innerHTML = "Current Slot: "+count[0];
+                                }
+                                }
+                              })
+                        }
+                      function ibmin_update() {
+                        var status = [];
+                        var count = [];
+                        Parse.$ = jQuery;
+                        Parse.initialize("nVul6sjXS7F5FfVLOX0o0a1GIkDuCYS1yBzQpVgn", "GLTokJkjL6kK54qBNQE5C5zMYXqPcyFLM1zyoQNY");
+                          var Slot =  Parse.Object.extend("Corporate");
+                          var query = new Parse.Query(Slot);
+                          query.equalTo("objectId","");
+                        query.first({
+                          success: function(slot) {
+                            count=slot.get("parking_count");
+                            count[0]=20;
+                            slot.set("parking_count",count);
+                            status=slot.get("park_show_status");
+                            status[0]="Current Status: "+count[0].toString()+" Slots Available";
+                            slot.set("park_show_status",status);
+                            slot.save();
+                            document.getElementById("ibmin_slot").value=count[0];
+                            document.getElementById("ibmin_status").innerHTML ="Current status" + ": " + count[0];
+                            document.getElementById("ibmin_min").disabled= "";
+                            document.getElementById("ibmin_slot").disabled= "";
+                            document.getElementById("ibmin_add").disabled= "";
+                            document.getElementById("ibmin_less").disabled= "disabled";
+                            document.getElementById("ibmin_enter").disabled="";
+                          }
+                        })
+                      }
+
+                      function ibmin_minus(){
+                        var status = [];
+                        var count = [];
+                        Parse.$ = jQuery;
+                        Parse.initialize("nVul6sjXS7F5FfVLOX0o0a1GIkDuCYS1yBzQpVgn", "GLTokJkjL6kK54qBNQE5C5zMYXqPcyFLM1zyoQNY");
+                          var Slot =  Parse.Object.extend("Corporate");
+                          var query = new Parse.Query(Slot);
+                          query.equalTo("objectId","");
+                        query.first({
+                          success: function(slot) {
+                            count=slot.get("parking_count");
+                            if(count[0] > 0)
+                          {
+                            count[0]=count[0]-1;
+                            slot.set("parking_count",count);
+                            status=slot.get("park_show_status");
+                            status[0]="Current Status: "+count[0].toString()+" Slots Available";
+                            slot.set("park_show_status",status);
+                            slot.save();
+                            document.getElementById("ibmin_slot").value = count[0];
+                            document.getElementById("ibmin_status").innerHTML = "Current Slot: "+count[0];
+                            }
+                            if(count[0] == 0)
+                          {
+                            count[0]=0;
+                            slot.set("parking_count",count);
+                            status=slot.get("park_show_status");
+                            status[0]="Current Status: Full";
+                            slot.set("park_show_status",status);
+                            slot.save();
+                            document.getElementById("ibmin_slot").value = count[0];
+                            document.getElementById("ibmin_status").innerHTML = "Current Slot: "+count[0];
+                            }
+                          }
+                        })
+                      }
+
+                      function ibmin_plus() {
+                        var status = [];
+                        var count = [];
+                        Parse.$ = jQuery;
+                        Parse.initialize("nVul6sjXS7F5FfVLOX0o0a1GIkDuCYS1yBzQpVgn", "GLTokJkjL6kK54qBNQE5C5zMYXqPcyFLM1zyoQNY");
+                          var Slot =  Parse.Object.extend("Corporate");
+                          var query = new Parse.Query(Slot);
+                          query.equalTo("objectId","");
+                        query.first({
+                          success: function(slot) {
+                            count=slot.get("parking_count");
+                            if(count[0] <  20)
+                                {
+                                  count[0]=count[0]+1;
+                                  slot.set("parking_count",count);
+                                  status=slot.get("park_show_status");
+                                  status[0]="Current Status: "+count[0].toString()+" Slots Available";
+                                  slot.set("park_show_status",status);
+                                  slot.save();
+                                  document.getElementById("ibmin_slot").value = count[0];
+                                  document.getElementById("ibmin_status").innerHTML = "Current Slot: "+count[0];
+                            }
+                          else {
+                            count[0]=21;
+                            status=slot.get("park_show_status");
+                            status[0]="Current Status: Available";
+                            slot.set("park_show_status",status);
+                            slot.set("parking_count",count);
+                            document.getElementById("ibmin_min").disabled= "disabled";
+                            document.getElementById("ibmin_add").disabled= "disabled";
+                            document.getElementById("ibmin_less").disabled= "";
+                            document.getElementById("ibmin_enter").disabled="disabled";
+                            document.getElementById("ibmin_slot").disabled="disabled";
+                            document.getElementById("ibmin_status").innerHTML ="Available";
+                            slot.save();
+                            }
+                          }
+                        })
+                      }
+                </script>
+              </div>
+        
+        
+        
+            <div class="jumbotron">
+                  <h2 style="color:#984807"><strong>HP Infinity Parking </strong></h2>
+                  <hr>
+                  <button type="button"  id= "hp_less" onclick="hp_update()" class="btn-md btn-warning" >20 Slots Left</button>
+                  <button type="button"  id= "hp_avail" onclick="hp_avail()" class="btn-md btn-success" >Available</button>
+                  <hr>
+                  <button type="button"  id="hp_min" onclick="hp_minus()" class="btn-sm btn-danger" disabled>-</button>
+                  <input id ="hp_slot" value="" type="number" disabled ></input>
+                  <button type="button"  id="hp_add" onclick="hp_plus()" class="btn-sm btn-success" disabled>+</button>
+                  <br>
+                  <button type="button"  id="hp_enter" onclick="hp_enter()" class="btn-sm btn-primary" disabled>Enter</button>
+                  <hr>
+                  <h2 id ="hp_status" style="color:#984807"><strong></strong></h2>
+                  <hr>
+
+
+            <script>
+                      function hp_avail() {
+                        var status = [];
+                        var count = [];
+                        Parse.$ = jQuery;
+                        Parse.initialize("nVul6sjXS7F5FfVLOX0o0a1GIkDuCYS1yBzQpVgn", "GLTokJkjL6kK54qBNQE5C5zMYXqPcyFLM1zyoQNY");
+                          var Slot =  Parse.Object.extend("Corporate");
+                          var query = new Parse.Query(Slot);
+                          query.equalTo("objectId","");
+                              query.first({
+                                    success: function(slot) {
+                                          count=slot.get("parking_count");
+                                          count[0]=21;
+                                          slot.set("parking_count",count);
+                                          status=slot.get("park_show_status");
+                                          status[0]="Current Status: Available";
+                                          slot.set("park_show_status",status);
+                                          document.getElementById("hp_status").innerHTML ="Available";
+                                          document.getElementById("hp_min").disabled= "disabled";
+                                          document.getElementById("hp_add").disabled= "disabled";
+                                          document.getElementById("hp_less").disabled= "";
+                                          document.getElementById("hp_enter").disabled="disabled";
+                                          document.getElementById("hp_slot").disabled="disabled";
+                                          slot.save();
+                                        }
+                              })
+                      }
+
+                        function hp_enter() {
+                          var status=[];
+                          var count = [];
+                          Parse.$ = jQuery;
+                          Parse.initialize("nVul6sjXS7F5FfVLOX0o0a1GIkDuCYS1yBzQpVgn", "GLTokJkjL6kK54qBNQE5C5zMYXqPcyFLM1zyoQNY");
+                            var Slot =  Parse.Object.extend("Corporate");
+                            var query = new Parse.Query(Slot);
+                            query.equalTo("objectId","");
+                              query.first({
+                                success: function(slot) {
+                                if(document.getElementById("hp_slot").value < 21 && document.getElementById("hp_slot").value >=0)
+                                                            {
+                                  count=slot.get("parking_count");
+                                  count[0]=parseInt(document.getElementById("hp_slot").value);
+                                  slot.set("parking_count",count);
+                                  status=slot.get("park_show_status");
+                                  status[0]="Current Status: "+count[0].toString()+" Slots Available";
+                                  slot.set("park_show_status",status);
+                                  slot.save();
+                                  document.getElementById("hp_slot").value=count[0];
+                                  document.getElementById("hp_status").innerHTML = count[0];
+                                }
+                                if(document.getElementById("hp_slot").value  == 0)
+                              {
+                                count[0]=0;
+                                slot.set("parking_count",count);
+                                status=slot.get("park_show_status");
+                                status[0]="Current Status: Full";
+                                slot.set("park_show_status",status);
+                                slot.save();
+                                document.getElementById("hp_slot").value = count[0];
+                                document.getElementById("hp_status").innerHTML = "Current Slot: "+count[0];
+                                }
+                                }
+                              })
+                        }
+                      function hp_update() {
+                        var status = [];
+                        var count = [];
+                        Parse.$ = jQuery;
+                        Parse.initialize("nVul6sjXS7F5FfVLOX0o0a1GIkDuCYS1yBzQpVgn", "GLTokJkjL6kK54qBNQE5C5zMYXqPcyFLM1zyoQNY");
+                          var Slot =  Parse.Object.extend("Corporate");
+                          var query = new Parse.Query(Slot);
+                          query.equalTo("objectId","");
+                        query.first({
+                          success: function(slot) {
+                            count=slot.get("parking_count");
+                            count[0]=20;
+                            slot.set("parking_count",count);
+                            status=slot.get("park_show_status");
+                            status[0]="Current Status: "+count[0].toString()+" Slots Available";
+                            slot.set("park_show_status",status);
+                            slot.save();
+                            document.getElementById("hp_slot").value=count[0];
+                            document.getElementById("hp_status").innerHTML ="Current status" + ": " + count[0];
+                            document.getElementById("hp_min").disabled= "";
+                            document.getElementById("hp_slot").disabled= "";
+                            document.getElementById("hp_add").disabled= "";
+                            document.getElementById("hp_less").disabled= "disabled";
+                            document.getElementById("hp_enter").disabled="";
+                          }
+                        })
+                      }
+
+                      function hp_minus(){
+                        var status = [];
+                        var count = [];
+                        Parse.$ = jQuery;
+                        Parse.initialize("nVul6sjXS7F5FfVLOX0o0a1GIkDuCYS1yBzQpVgn", "GLTokJkjL6kK54qBNQE5C5zMYXqPcyFLM1zyoQNY");
+                          var Slot =  Parse.Object.extend("Corporate");
+                          var query = new Parse.Query(Slot);
+                          query.equalTo("objectId","");
+                        query.first({
+                          success: function(slot) {
+                            count=slot.get("parking_count");
+                            if(count[0] > 0)
+                          {
+                            count[0]=count[0]-1;
+                            slot.set("parking_count",count);
+                            status=slot.get("park_show_status");
+                            status[0]="Current Status: "+count[0].toString()+" Slots Available";
+                            slot.set("park_show_status",status);
+                            slot.save();
+                            document.getElementById("hp_slot").value = count[0];
+                            document.getElementById("hp_status").innerHTML = "Current Slot: "+count[0];
+                            }
+                            if(count[0] == 0)
+                          {
+                            count[0]=0;
+                            slot.set("parking_count",count);
+                            status=slot.get("park_show_status");
+                            status[0]="Current Status: Full";
+                            slot.set("park_show_status",status);
+                            slot.save();
+                            document.getElementById("hp_slot").value = count[0];
+                            document.getElementById("hp_status").innerHTML = "Current Slot: "+count[0];
+                            }
+                          }
+                        })
+                      }
+
+                      function hp_plus() {
+                        var status = [];
+                        var count = [];
+                        Parse.$ = jQuery;
+                        Parse.initialize("nVul6sjXS7F5FfVLOX0o0a1GIkDuCYS1yBzQpVgn", "GLTokJkjL6kK54qBNQE5C5zMYXqPcyFLM1zyoQNY");
+                          var Slot =  Parse.Object.extend("Corporate");
+                          var query = new Parse.Query(Slot);
+                          query.equalTo("objectId","");
+                        query.first({
+                          success: function(slot) {
+                            count=slot.get("parking_count");
+                            if(count[0] <  20)
+                                {
+                                  count[0]=count[0]+1;
+                                  slot.set("parking_count",count);
+                                  status=slot.get("park_show_status");
+                                  status[0]="Current Status: "+count[0].toString()+" Slots Available";
+                                  slot.set("park_show_status",status);
+                                  slot.save();
+                                  document.getElementById("hp_slot").value = count[0];
+                                  document.getElementById("hp_status").innerHTML = "Current Slot: "+count[0];
+                            }
+                          else {
+                            count[0]=21;
+                            status=slot.get("park_show_status");
+                            status[0]="Current Status: Available";
+                            slot.set("park_show_status",status);
+                            slot.set("parking_count",count);
+                            document.getElementById("hp_min").disabled= "disabled";
+                            document.getElementById("hp_add").disabled= "disabled";
+                            document.getElementById("hp_less").disabled= "";
+                            document.getElementById("hp_enter").disabled="disabled";
+                            document.getElementById("hp_slot").disabled="disabled";
+                            document.getElementById("hp_status").innerHTML ="Available";
+                            slot.save();
+                            }
+                          }
+                        })
+                      }
+                </script>
+              </div>
+        
+        
+        
+            <div class="jumbotron">
+                  <h2 style="color:#984807"><strong>Nokia Infinity Parking </strong></h2>
+                  <hr>
+                  <button type="button"  id= "nokia_less" onclick="nokia_update()" class="btn-md btn-warning" >20 Slots Left</button>
+                  <button type="button"  id= "nokia_avail" onclick="nokia_avail()" class="btn-md btn-success" >Available</button>
+                  <hr>
+                  <button type="button"  id="nokia_min" onclick="nokia_minus()" class="btn-sm btn-danger" disabled>-</button>
+                  <input id ="nokia_slot" value="" type="number" disabled ></input>
+                  <button type="button"  id="nokia_add" onclick="nokia_plus()" class="btn-sm btn-success" disabled>+</button>
+                  <br>
+                  <button type="button"  id="nokia_enter" onclick="nokia_enter()" class="btn-sm btn-primary" disabled>Enter</button>
+                  <hr>
+                  <h2 id ="nokia_status" style="color:#984807"><strong></strong></h2>
+                  <hr>
+
+
+            <script>
+                      function nokia_avail() {
+                        var status = [];
+                        var count = [];
+                        Parse.$ = jQuery;
+                        Parse.initialize("nVul6sjXS7F5FfVLOX0o0a1GIkDuCYS1yBzQpVgn", "GLTokJkjL6kK54qBNQE5C5zMYXqPcyFLM1zyoQNY");
+                          var Slot =  Parse.Object.extend("Corporate");
+                          var query = new Parse.Query(Slot);
+                          query.equalTo("objectId","");
+                              query.first({
+                                    success: function(slot) {
+                                          count=slot.get("parking_count");
+                                          count[0]=21;
+                                          slot.set("parking_count",count);
+                                          status=slot.get("park_show_status");
+                                          status[0]="Current Status: Available";
+                                          slot.set("park_show_status",status);
+                                          document.getElementById("nokia_status").innerHTML ="Available";
+                                          document.getElementById("nokia_min").disabled= "disabled";
+                                          document.getElementById("nokia_add").disabled= "disabled";
+                                          document.getElementById("nokia_less").disabled= "";
+                                          document.getElementById("nokia_enter").disabled="disabled";
+                                          document.getElementById("nokia_slot").disabled="disabled";
+                                          slot.save();
+                                        }
+                              })
+                      }
+
+                        function nokia_enter() {
+                          var status=[];
+                          var count = [];
+                          Parse.$ = jQuery;
+                          Parse.initialize("nVul6sjXS7F5FfVLOX0o0a1GIkDuCYS1yBzQpVgn", "GLTokJkjL6kK54qBNQE5C5zMYXqPcyFLM1zyoQNY");
+                            var Slot =  Parse.Object.extend("Corporate");
+                            var query = new Parse.Query(Slot);
+                            query.equalTo("objectId","");
+                              query.first({
+                                success: function(slot) {
+                                if(document.getElementById("nokia_slot").value < 21 && document.getElementById("nokia_slot").value >=0)
+                                                            {
+                                  count=slot.get("parking_count");
+                                  count[0]=parseInt(document.getElementById("nokia_slot").value);
+                                  slot.set("parking_count",count);
+                                  status=slot.get("park_show_status");
+                                  status[0]="Current Status: "+count[0].toString()+" Slots Available";
+                                  slot.set("park_show_status",status);
+                                  slot.save();
+                                  document.getElementById("nokia_slot").value=count[0];
+                                  document.getElementById("nokia_status").innerHTML = count[0];
+                                }
+                                if(document.getElementById("nokia_slot").value  == 0)
+                              {
+                                count[0]=0;
+                                slot.set("parking_count",count);
+                                status=slot.get("park_show_status");
+                                status[0]="Current Status: Full";
+                                slot.set("park_show_status",status);
+                                slot.save();
+                                document.getElementById("nokia_slot").value = count[0];
+                                document.getElementById("nokia_status").innerHTML = "Current Slot: "+count[0];
+                                }
+                                }
+                              })
+                        }
+                      function nokia_update() {
+                        var status = [];
+                        var count = [];
+                        Parse.$ = jQuery;
+                        Parse.initialize("nVul6sjXS7F5FfVLOX0o0a1GIkDuCYS1yBzQpVgn", "GLTokJkjL6kK54qBNQE5C5zMYXqPcyFLM1zyoQNY");
+                          var Slot =  Parse.Object.extend("Corporate");
+                          var query = new Parse.Query(Slot);
+                          query.equalTo("objectId","");
+                        query.first({
+                          success: function(slot) {
+                            count=slot.get("parking_count");
+                            count[0]=20;
+                            slot.set("parking_count",count);
+                            status=slot.get("park_show_status");
+                            status[0]="Current Status: "+count[0].toString()+" Slots Available";
+                            slot.set("park_show_status",status);
+                            slot.save();
+                            document.getElementById("nokia_slot").value=count[0];
+                            document.getElementById("nokia_status").innerHTML ="Current status" + ": " + count[0];
+                            document.getElementById("nokia_min").disabled= "";
+                            document.getElementById("nokia_slot").disabled= "";
+                            document.getElementById("nokia_add").disabled= "";
+                            document.getElementById("nokia_less").disabled= "disabled";
+                            document.getElementById("nokia_enter").disabled="";
+                          }
+                        })
+                      }
+
+                      function nokia_minus(){
+                        var status = [];
+                        var count = [];
+                        Parse.$ = jQuery;
+                        Parse.initialize("nVul6sjXS7F5FfVLOX0o0a1GIkDuCYS1yBzQpVgn", "GLTokJkjL6kK54qBNQE5C5zMYXqPcyFLM1zyoQNY");
+                          var Slot =  Parse.Object.extend("Corporate");
+                          var query = new Parse.Query(Slot);
+                          query.equalTo("objectId","");
+                        query.first({
+                          success: function(slot) {
+                            count=slot.get("parking_count");
+                            if(count[0] > 0)
+                          {
+                            count[0]=count[0]-1;
+                            slot.set("parking_count",count);
+                            status=slot.get("park_show_status");
+                            status[0]="Current Status: "+count[0].toString()+" Slots Available";
+                            slot.set("park_show_status",status);
+                            slot.save();
+                            document.getElementById("nokia_slot").value = count[0];
+                            document.getElementById("nokia_status").innerHTML = "Current Slot: "+count[0];
+                            }
+                            if(count[0] == 0)
+                          {
+                            count[0]=0;
+                            slot.set("parking_count",count);
+                            status=slot.get("park_show_status");
+                            status[0]="Current Status: Full";
+                            slot.set("park_show_status",status);
+                            slot.save();
+                            document.getElementById("nokia_slot").value = count[0];
+                            document.getElementById("nokia_status").innerHTML = "Current Slot: "+count[0];
+                            }
+                          }
+                        })
+                      }
+
+                      function nokia_plus() {
+                        var status = [];
+                        var count = [];
+                        Parse.$ = jQuery;
+                        Parse.initialize("nVul6sjXS7F5FfVLOX0o0a1GIkDuCYS1yBzQpVgn", "GLTokJkjL6kK54qBNQE5C5zMYXqPcyFLM1zyoQNY");
+                          var Slot =  Parse.Object.extend("Corporate");
+                          var query = new Parse.Query(Slot);
+                          query.equalTo("objectId","");
+                        query.first({
+                          success: function(slot) {
+                            count=slot.get("parking_count");
+                            if(count[0] <  20)
+                                {
+                                  count[0]=count[0]+1;
+                                  slot.set("parking_count",count);
+                                  status=slot.get("park_show_status");
+                                  status[0]="Current Status: "+count[0].toString()+" Slots Available";
+                                  slot.set("park_show_status",status);
+                                  slot.save();
+                                  document.getElementById("nokia_slot").value = count[0];
+                                  document.getElementById("nokia_status").innerHTML = "Current Slot: "+count[0];
+                            }
+                          else {
+                            count[0]=21;
+                            status=slot.get("park_show_status");
+                            status[0]="Current Status: Available";
+                            slot.set("park_show_status",status);
+                            slot.set("parking_count",count);
+                            document.getElementById("nokia_min").disabled= "disabled";
+                            document.getElementById("nokia_add").disabled= "disabled";
+                            document.getElementById("nokia_less").disabled= "";
+                            document.getElementById("nokia_enter").disabled="disabled";
+                            document.getElementById("nokia_slot").disabled="disabled";
+                            document.getElementById("nokia_status").innerHTML ="Available";
                             slot.save();
                             }
                           }
